@@ -87,6 +87,7 @@ gulp.task('default', ['clean'], function () {
 });
 
 gulp.task('connect', function () {
+/*
     var connect = require('connect');
     var app = connect()
         .use(require('connect-livereload')({ port: 35729 }))
@@ -99,6 +100,18 @@ gulp.task('connect', function () {
         .on('listening', function () {
             console.log('Started connect web server on http://localhost:9000');
         });
+        */
+    var express = require('express');
+    var app = express();
+
+    app.get('/about', function(request, response){
+      response.end("Welcome to the about!");
+    });
+    app.use(require('connect-livereload')({ port: 35729 }))
+      .use(express.static('app'))
+      .use(express.static('.tmp'))
+      .listen(9000);
+
 });
 
 gulp.task('serve', ['connect', 'views', 'styles', 'scripts', 'serverScripts'], function () {
