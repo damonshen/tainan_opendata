@@ -27,6 +27,13 @@ gulp.task('scripts', function () {
         .pipe(gulp.dest('.tmp/scripts'))
 });
 
+
+gulp.task('serverScripts', function () {
+    return gulp.src('server/**/*.ls')
+        .pipe($.livescript())
+        .pipe(gulp.dest('server/scripts'))
+});
+
 gulp.task('html', ['views', 'styles', 'scripts'], function () {
     var jsFilter = $.filter('**/*.js');
     var cssFilter = $.filter('**/*.css');
@@ -94,7 +101,7 @@ gulp.task('connect', function () {
         });
 });
 
-gulp.task('serve', ['connect', 'views', 'styles', 'scripts'], function () {
+gulp.task('serve', ['connect', 'views', 'styles', 'scripts', 'serverScripts'], function () {
     require('opn')('http://localhost:9000');
 });
 
@@ -124,7 +131,7 @@ gulp.task('watch', ['connect', 'serve'], function () {
     gulp.watch([
         '.tmp/*.html',
         '.tmp/styles/**/*.css',
-        '{.tmp,app}/scripts/**/*.js',
+        '{.tmp,app,server}/scripts/**/*.js',
         'app/images/**/*'
     ]).on('change', function (file) {
         server.changed(file.path);
@@ -133,6 +140,7 @@ gulp.task('watch', ['connect', 'serve'], function () {
     gulp.watch('app/*.jade', ['views']);
     gulp.watch('app/styles/**/*.styl', ['styles']);
     gulp.watch('app/scripts/**/*.ls', ['scripts']);
+    gulp.watch('server/**/*.ls', ['serverScripts']);
     gulp.watch('app/images/**/*', ['images']);
     gulp.watch('bower.json', ['wiredep']);
 });
