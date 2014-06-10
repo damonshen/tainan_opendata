@@ -3,7 +3,9 @@ sayHello = ->
 sayHello!
 
 $ ('.btn') .click ->
-  $ .get '/getData' (data)->
+  console.log $('input[name=url]').val()
+  inputUrl = $('input[name=url]').val()
+  $ .get '/getData' {url: inputUrl} (data)->
     console.log JSON.stringify data
 /*
 url = \http://odata.tn.edu.tw/ebookapi/api/getOdataSIS?SchoolCode=213628&std_grade=5

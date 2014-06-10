@@ -112,7 +112,8 @@ gulp.task('connect', ['serverScripts'], function () {
 
     var getData = require('./server/scripts/getData');
     app.get('/getData', function(request, response){
-      getData.show(function(data){
+      var url = request.query.url
+      getData.show(url, function(data){
         response.send(data);
       });
     });
