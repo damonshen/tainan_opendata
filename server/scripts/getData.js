@@ -1,3 +1,18 @@
 (function(){
-  console.log('122');
+  var request, url, show;
+  request = require('request');
+  url = 'http://odata.tn.edu.tw/schoolapi/api/getdata';
+  show = function(callback){
+    return request({
+      url: url,
+      json: true
+    }, function(error, response, body){
+      if (!error && response.statusCode === 200) {
+        return typeof callback === 'function' ? callback(body) : void 8;
+      } else {
+        return 'error';
+      }
+    });
+  };
+  exports.show = show;
 }).call(this);

@@ -13,9 +13,10 @@ gulp.task('views', function () {
 
 });
 
+var nib = require('nib');
 gulp.task('styles', function () {
     return gulp.src('app/styles/main.styl')
-        .pipe($.stylus())
+        .pipe($.stylus({use: [nib()]}))
         .pipe($.autoprefixer('last 1 version'))
         .pipe(gulp.dest('.tmp/styles'))
         .pipe($.size());
@@ -86,7 +87,7 @@ gulp.task('default', ['clean'], function () {
     gulp.start('build');
 });
 
-gulp.task('connect', function () {
+gulp.task('connect', ['serverScripts'], function () {
 /*
     var connect = require('connect');
     var app = connect()
@@ -104,8 +105,11 @@ gulp.task('connect', function () {
     var express = require('express');
     var app = express();
 
-    app.get('/about', function(request, response){
-      response.end("Welcome to the about!");
+    var getData = require('./server/scripts/getData');
+    app.get('/getData', function(request, response){
+      getData.show(function(data){
+        response.send(data);
+      });
     });
     app.use(require('connect-livereload')({ port: 35729 }))
       .use(express.static('app'))
@@ -114,7 +118,7 @@ gulp.task('connect', function () {
 
 });
 
-gulp.task('serve', ['connect', 'views', 'styles', 'scripts', 'serverScripts'], function () {
+gulp.task('serve', ['connect', 'views', 'styles', 'scripts'], function () {
     require('opn')('http://localhost:9000');
 });
 

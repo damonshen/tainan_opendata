@@ -1,10 +1,10 @@
 sayHello = ->
   console.log \hello \livescript
 sayHello!
-console.log \yes
 
 $ ('.btn') .click ->
-  alert \123
+  $ .get '/getData' (data)->
+    console.log JSON.stringify data
 
 /*
 url = \http://odata.tn.edu.tw/ebookapi/api/getOdataSIS?SchoolCode=213628&std_grade=5
