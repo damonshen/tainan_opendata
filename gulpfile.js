@@ -2,12 +2,14 @@
 // generated on 2014-06-05 using generator-gulp-webapp 0.1.0
 
 var gulp = require('gulp');
+var plumber = require('gulp-plumber');
 
 // load plugins
 var $ = require('gulp-load-plugins')();
 
 gulp.task('views', function () {
     return gulp.src(['app/*.jade', '!app/layout.jade'])
+        .pipe(plumber())
         .pipe($.jade({pretty: true}))
         .pipe(gulp.dest('.tmp'));
 
@@ -16,6 +18,7 @@ gulp.task('views', function () {
 var nib = require('nib');
 gulp.task('styles', function () {
     return gulp.src('app/styles/main.styl')
+        .pipe(plumber())
         .pipe($.stylus({use: [nib()]}))
         .pipe($.autoprefixer('last 1 version'))
         .pipe(gulp.dest('.tmp/styles'))
@@ -24,6 +27,7 @@ gulp.task('styles', function () {
 
 gulp.task('scripts', function () {
     return gulp.src('app/scripts/**/*.ls')
+        .pipe(plumber())
         .pipe($.livescript())
         .pipe(gulp.dest('.tmp/scripts'))
 });
@@ -31,6 +35,7 @@ gulp.task('scripts', function () {
 
 gulp.task('serverScripts', function () {
     return gulp.src('server/**/*.ls')
+        .pipe(plumber())
         .pipe($.livescript())
         .pipe(gulp.dest('server/scripts'))
 });

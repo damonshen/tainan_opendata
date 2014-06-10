@@ -5,7 +5,6 @@ sayHello!
 $ ('.btn') .click ->
   $ .get '/getData' (data)->
     console.log JSON.stringify data
-
 /*
 url = \http://odata.tn.edu.tw/ebookapi/api/getOdataSIS?SchoolCode=213628&std_grade=5
 data <- $ .get url
