@@ -2,7 +2,16 @@ extends layout
 
 block content
   .title Tainan open data
-  .form
+  .input-group
     input.form-control(type="text", name="url")
-    button.btn.btn-primary submit
+    .input-group-btn
+      button.btn.btn-primary.dropdown-toggle(type='button' data-toggle='dropdown') type
+        span.caret
+      ul.dropdown-menu.pull-right
+        li
+          a.send-btn(name='json') Json
+        li
+          a.send-btn(name='xml') Xml
+        li
+          a.send-btn(name='csv') Csv
   .result
