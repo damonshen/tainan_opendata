@@ -8,24 +8,23 @@
       url: url,
       json: true
     }, function(error, response, body){
-      var result, Converter, csvConverter;
+      var Converter, csvConverter;
       if (!error && response.statusCode === 200) {
-        result = (function(){
-          switch (type) {
-          case 'json':
-            return body;
-          case 'csv':
-            console.log(body);
-            Converter = require('csvtojson').core.Converter;
-            csvConverter = new Converter({
-              constructResult: true
-            });
-            return console.log(csvConverter.fromString(body, function(err, jsonObj){
-              return console.log(jsonObj);
-            }));
-          }
-        }());
-        return typeof callback === 'function' ? callback(result) : void 8;
+        switch (type) {
+        case 'json':
+          return typeof callback === 'function' ? callback(body) : void 8;
+        case 'csv':
+          Converter = require('csvtojson').core.Converter;
+          csvConverter = new Converter({
+            constructResult: true
+          });
+          return csvConverter.fromString(body, function(err, jsonObj){
+            if (err) {
+              err;
+            }
+            return typeof callback === 'function' ? callback(jsonObj) : void 8;
+          });
+        }
       } else {
         return typeof callback === 'function' ? callback('error') : void 8;
       }

@@ -10,15 +10,15 @@ show = (url, type, callback)->
   },
   (error, response, body) ->
     if !error and response.statusCode is 200
-      result = switch type
+      switch type
       case \json
-        body
+        callback? body
       case \csv
-        console.log body
         Converter = require \csvtojson .core.Converter
         csvConverter = new Converter constructResult: true
-        console.log csvConverter.fromString body, (err, jsonObj) ->
-          console.log jsonObj
-      callback? result
+        err, jsonObj <- csvConverter.fromString body
+        if err
+          err
+        callback? jsonObj
     else callback? \error
 exports.show = show
