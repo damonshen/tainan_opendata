@@ -1,6 +1,4 @@
-icon-font-path = "../bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/"
-// bower:scss
-@import '../bower_components/bootstrap/dist/css/bootstrap.css'
+@import '../bower_components/semantic-ui/rtl/packaged/css/semantic.min.css'
 @import 'nib'
 @import 'grid.styl'
 
@@ -9,17 +7,15 @@ total-width=100%
 .container
   column(8)
   margin-left: 20%
+  height: 100%
   //test nib
   .title
     background: linear-gradient(top, white, #aaaaaa)
     text-align: center
     font-size: 50px
-    margin-top: 3% 
-  .form
-    row(8)
-    margin: 5% auto
-    input
-      column(7,8)
+    padding: 5%
+  .search-bar
+    padding: 3%
   .result
     margin-top: 10%
 
