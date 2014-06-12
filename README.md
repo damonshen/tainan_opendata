@@ -8,3 +8,6 @@ web app use gulp with jade ,stylus, livescript
     npm install
 
     bower install
+
+###Start
+    gulp serve
