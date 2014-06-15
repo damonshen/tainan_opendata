@@ -21,3 +21,25 @@ $ \.ui.button .dropdown onChange: (value, text) ->
       \xml
     $ \.result .text result
 
+$ \#map .tinyMap!
+#get the information of restaurant
+$ \.init-btn .click ->
+  $ \.ui.button .toggleClass 'loading'
+  #the url of store in open data
+  storeUrl = 'http://data.tainan.gov.tw/dataset/34e6decf-dd31-4208-a46c-4173279af5fc/resource/7343d994-0378-4714-a72c-89c9ea375794/download/dining.csv'
+  #get the data from http request of getData
+  $ .get \/getData {url: storeUrl, type: 'csv'} (data)->
+    markerList = []
+    for obj in data
+      latLng =
+        * obj.Y坐標
+        * obj.X坐標
+      markerObj =
+        * addr: latLng
+          text: obj.餐飲店家名稱
+      markerList.push(markerObj)
+      console.log JSON.stringify markerObj
+    $ \#map .tinyMap 'modify' marker: markerList
+    $ \.ui.button .toggleClass 'loading'
+
+
