@@ -6,7 +6,7 @@
     console.log("server get url: " + url);
     return request({
       url: url,
-      json: true
+      encoding: null
     }, function(error, response, body){
       var Converter, csvConverter;
       if (!error && response.statusCode === 200) {

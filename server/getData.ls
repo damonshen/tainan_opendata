@@ -5,8 +5,8 @@ url = \http://odata.tn.edu.tw/schoolapi/api/getdata
 show = (url, type, callback)->
   console.log "server get url: #{url}"
   request {
-    url: url,
-    json: true
+    url: url
+    encoding: null
   },
   (error, response, body) ->
     if !error and response.statusCode is 200
