@@ -1,17 +1,64 @@
-extends layout
-
-block content
-  .title Tainan open data
-  .search-bar
-    .ui.input.fluid
-      input(type="text" name="url" placeholder='URL')
-      .ui.teal.button.icon.labeled.dropdown
-        i.dropdown.icon
-        span.text type
-        .menu
-          .item(data-value='json') JSON
-          .item(data-value='csv') CSV
-          .item(data-value='xml') XML
-      .ui.button.blue.init-btn add
-  #map
-  .result
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title Hackthon
+    link(rel='stylesheet', href='./styles/main.css')
+    link(rel='stylesheet', href='http://code.jquery.com/mobile/1.4.2/jquery.mobile.structure-1.4.2.min.css')
+    script(src='http://code.jquery.com/jquery-1.10.2.min.js')
+    script(src='http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js')
+    script(src='main.js')
+  body
+    div(data-role='page', data-theme='a')
+      div(data-role='header', data-position='inline')
+        h1 Hackthon
+      #sports_choice(data-role='content', data-theme='a', role='main')
+        fieldset(data-role='controlgroup', data-type='horizontal')
+          legend 選擇你今天想做的運動:
+          input#radio-choice-a1(type='checkbox', name='radio-choice-a1', value='1')
+          label(for='radio-choice-a1') 桌球
+          input#radio-choice-b1(type='checkbox', name='radio-choice-a1', value='2')
+          label(for='radio-choice-b1') 籃球
+          input#radio-choice-c1(type='checkbox', name='radio-choice-a1', value='3')
+          label(for='radio-choice-c1') 跑步
+          input#radio-choice-d1(type='checkbox', name='radio-choice-a1', value='4')
+          label(for='radio-choice-d1') 游泳
+          input#radio-choice-e1(type='checkbox', name='radio-choice-a1', value='5')
+          label(for='radio-choice-e1') 棒球
+          input#radio-choice-f1(type='checkbox', name='radio-choice-a1', value='6')
+          label(for='radio-choice-f1') 土風舞
+          input#radio-choice-g1(type='checkbox', name='radio-choice-a1', value='7')
+          label(for='radio-choice-g1') 太極拳
+        a#sports_submit(href='#sports_map', data-role='button', data-transition='fade') To sports map
+    #sports_map(data-role='page', data-theme='a')
+      fieldset(data-role='controlgroup', data-mini='true', data-type='horizontal')
+        input#radio-mini-a1(type='radio', name='radio-mini', value='choice-1', checked='checked')
+        label(for='radio-mini-a1') Map
+        input#radio-mini-a2(type='radio', name='radio-mini', value='choice-2')
+        label(for='radio-mini-a2') List
+      a(href='#food_choice', data-role='button', data-transition='fade') Food Link
+    #food_choice(data-role='page', data-theme='a')
+      fieldset(data-role='controlgroup', data-type='horizontal')
+        legend 選擇運動完想吃的食物形態:
+        input#radio-choice-a1(type='checkbox', name='radio-choice-a1', value='1')
+        label(for='radio-choice-a1') 異國料理
+        input#radio-choice-b1(type='checkbox', name='radio-choice-a1', value='2')
+        label(for='radio-choice-b1') 火烤料理
+        input#radio-choice-c1(type='checkbox', name='radio-choice-a1', value='3')
+        label(for='radio-choice-c1') 中式美食
+        input#radio-choice-d1(type='checkbox', name='radio-choice-a1', value='4')
+        label(for='radio-choice-d1') 夜市小吃
+        input#radio-choice-e1(type='checkbox', name='radio-choice-a1', value='5')
+        label(for='radio-choice-e1') 甜點冰品
+        input#radio-choice-f1(type='checkbox', name='radio-choice-a1', value='7')
+        label(for='radio-choice-f1') 地方特產
+        input#radio-choice-g1(type='checkbox', name='radio-choice-a1', value='8')
+        label(for='radio-choice-g1') 素食
+      a#food_submit(href='#food_map', data-role='button', data-transition='fade') Food Map
+    #food_map(data-role='page', data-theme='a')
+      fieldset(data-role='controlgroup', data-mini='true', data-type='horizontal')
+        input#radio-mini-b1(type='radio', name='radio-mini', value='choice-1', checked='checked')
+        label(for='radio-mini-b1') Map
+        input#radio-mini-b2(type='radio', name='radio-mini', value='choice-2')
+        label(for='radio-mini-b2') List
+      a(href='index.html', data-role='button', data-transition='fade') Sports choice

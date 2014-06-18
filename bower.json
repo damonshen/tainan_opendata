@@ -4,7 +4,8 @@
   "dependencies": {
     "modernizr": "~2.6.2",
     "jquery": "~1.11.0",
-    "semantic-ui": "~0.18.0"
+    "semantic-ui": "~0.18.0",
+    "jquery-mobile": "~1.4.2"
   },
   "devDependencies": {}
 }
