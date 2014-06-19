@@ -7,31 +7,20 @@ html.no-js
         meta(name='viewport' content='width=device-width, initial-scale=1')
         // Place favicon.ico and apple-touch-icon.png in the root directory
 
-        // build:css styles/vendor.css
-        // bower:css
-        link(rel='stylesheet', href='bower_components/jquery-mobile/css/themes/default/jquery.mobile.css')
-        // endbower
-        // endbuild
-
-        // build:css styles/main.css
-        link(rel='stylesheet' href='styles/main.css')
-        // endbuild
-
-        // build:js scripts/vendor/modernizr.js
-        script(src='../bower_components/modernizr/modernizr.js')
-        // endbuild
-
-        //build:js for google map
+        link(rel='stylesheet', href='./styles/main.css')
+        link(rel='stylesheet', href='http://code.jquery.com/mobile/1.4.2/jquery.mobile.structure-1.4.2.min.css')
+        script(src='./bower_components/jquery/jquery.min.js')
+        script(src='http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js')
+        //initialize the google map
         script(src='http://maps.google.com/maps/api/js?sensor=false')
-        script(src='bower_components/jquery/dist/jquery.js')
         script(src='scripts/tinyMap/jquery.tinyMap.min.js')
-    body
+        script(src='./scripts/main.js')
+
+    block body
         | <!--[if lt IE 10]>
         |     <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         | <![endif]-->
 
-        .container
-          block content
         // Google Analytics: change UA-XXXXX-X to be your site's ID.
         script.
             (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
@@ -46,10 +35,4 @@ html.no-js
         script(src='bower_components/modernizr/modernizr.js')
         script(src='bower_components/jquery-mobile/js/jquery.mobile.js')
         // endbower
-        // endbuild
-        script(src='bower_components/semantic-ui/rtl/packaged/javascript/semantic.min.js')
-        // endbuild
 
-        // build:js scripts/main.js
-        script(src='scripts/main.js')
-        // endbuild
