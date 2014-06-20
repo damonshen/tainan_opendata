@@ -6,8 +6,14 @@ mapOption =
 
 #go button used to trigger distance measured and select the nearest store
 ``
+
+var stop = 0;
 $(document).ready(function(){$('#go').click(function(){
 	getResultStore();
+})});
+
+$(document).ready(function(){$('#clear').click(function(){
+	$(document).ready(function(){$('#map').tinyMap('clear','direction')});
 })});
 ``
 ``
@@ -20,11 +26,11 @@ var getResultStore = function(){
 	getData(function(){
 		var i ;
 		var temp;
-		for(i = 0 ; i < markerList.length;i++){
+		for(i = 0 ; i<markerList.length;i++){
 			var start = "台南市安平區永華三街270號";
 			var store = markerList[i].addr;
 			var storeObj = markerList[i];
-			var temp = calcRoute(4,"driving",start,store,i,markerList.length);
+			calcRoute(4,"driving",start,store,i,markerList.length);
 		}
 	});
 }
@@ -49,6 +55,7 @@ function calcRoute(limit,value,start,end,index,markerLength){
 		destination:end,
 		travelMode:mode
 	};
+	var result;
 	setTimeout(function(){directionsService.route(request,function(result,status){
 		if(status == google.maps.DirectionsStatus.OK){
 			distance = result.routes[0].legs[0].distance.value;
@@ -61,13 +68,21 @@ function calcRoute(limit,value,start,end,index,markerLength){
 				console.log("n = "+n+" ,end:"+end+"distance:"+distance);
 				route.push(obj);
 				n++;
+				if(n==10){
+					stop = 1;
+				}
 			}
 		}
 		else if(status == google.maps.DirectionsStatus.ZERO_RESULTS){
 			console.log("zero result");
 		}
 		else if(status == google.maps.DirectionsStatus.OVER_QUERY_LIMIT){
-			calcRoute(limit,value,start,end,index,markerLength);
+			if(n==10){
+				stop = 1;
+			}
+			else{
+				calcRoute(limit,value,start,end,index,markerLength);
+			}
 		}
 		else if(status == google.maps.DirectionsStatus.REQUEST_DENIED){
 			console.log("request deny");
@@ -80,18 +95,12 @@ function calcRoute(limit,value,start,end,index,markerLength){
 		}
 		storeSelect(route,markerLength);
 	})},200);
-	if(n==10){
-		return 1;
-	}
 }
 
 //show result route//
 var callbackCount = 0;
 var storeSelect= function(route,markerLength){
-	callbackCount++;
-	if(callbackCount == 10){
-		$('#map').tinyMap({direction:route});
-	}
+	$(document).ready(function(){$('#map').tinyMap('modify',{direction:route})});
 }
 ``
 
