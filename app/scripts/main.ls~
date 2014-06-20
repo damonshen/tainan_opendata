@@ -3,32 +3,6 @@ mapOption =
   * center: '台南市政府'
     zoom: 13
 
-
-#go button used to trigger distance measured and select the nearest store
-``
-$(document).ready(function(){$('#go').click(function(){
-	getResultStore();
-})});
-``
-``
-var result = [];
-var num = 0;
-var distArray = [];
-var getResultStore = function(){
-	var List = [];
-	var obj;
-	getData(function(){
-		var i ;
-		var temp;
-		for(i = 0 ; i < markerList.length;i++){
-			var start = "台南市安平區永華三街270號";
-			var store = markerList[i].addr;
-			var storeObj = markerList[i];
-			var temp = calcRoute(4,"driving",start,store,i,markerList.length);
-		}
-	});
-}
-``
 ``
 //calculate the distance between the start and store//
 var directionsService = new google.maps.DirectionsService();
@@ -79,21 +53,18 @@ function calcRoute(limit,value,start,end,index,markerLength){
 			console.log("unknown error");
 		}
 		storeSelect(route,markerLength);
-	})},200);
+	})},1);
 	if(n==10){
 		return 1;
 	}
 }
-
-//show result route//
-var callbackCount = 0;
-var storeSelect= function(route,markerLength){
-	callbackCount++;
-	if(callbackCount == 10){
-		$('#map').tinyMap({direction:route});
-	}
-}
 ``
+``
+$(document).ready(function(){$('#go').click(function(){
+	alert("fuck");
+})});
+``
+
 
 ``
 var data;
@@ -123,7 +94,7 @@ var getData = function(callback){
 }
 
 ``
-#show the direction to all the result of result , but not used yet
+#show the direction to all the result of result
 ``
 var showRoute = function(resultList,start){
 	var resultStore = [];
@@ -138,7 +109,25 @@ var showRoute = function(resultList,start){
 }
 ``
 
-
+``
+var result = [];
+var num = 0;
+var distArray = [];
+var getResultStore = function(limit){
+	var List = [];
+	var obj;
+	getData(function(){
+		var i ;
+		var temp;
+		for(i = 0 ; i < markerList.length;i++){
+			var start = "台南市安平區永華三街270號";
+			var store = markerList[i].addr;
+			var storeObj = markerList[i];
+			var temp = calcRoute(limit,"driving",start,store,i,markerList.length);
+		}
+	});
+}
+``
 
 
 
