@@ -61,3 +61,8 @@ $ ->
     selectData 'restaurant', (data)->
       console.log JSON.stringify data
 
+``$(function() {
+   $("input[type='radio']").checkboxradio();
+    
+ });
+ ``
