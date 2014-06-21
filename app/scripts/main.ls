@@ -8,9 +8,6 @@ mapOption =
 ``
 var stop = 0;
 $(document).ready(function(){$('#go').click(function(){
-	$('#map').tinyMap(mapOption);
-/*	getData();*/
-/*	console.log(markerList);*/
 	getResultStore();
 })});
 
@@ -52,13 +49,14 @@ var getResultStore = function(){
 ``
 /*control the for loop index to get distance result*/
 var route = [];
+var store = [];
 var loop = function(i,markerList,callback){
 	if(n<5){
 		i++;
 		calcRoute(4,"driving",i,markerList,markerList.length,callback);
 	}
 	else{
-		storeSelect(route);
+		storeSelect(route,store);
 	}
 }
 ``
@@ -70,6 +68,7 @@ var test = 0;
 function calcRoute(limit,value,i,markerList,markerLength,callback){
 		var start = "台南市安平區永華三街270號";
 		var end = markerList[i].addr;
+		var storeName = markerList[i].text;
 		var mode;
 		var distance;
 		if(value=='driving')
@@ -96,6 +95,7 @@ function calcRoute(limit,value,i,markerList,markerLength,callback){
 				if(limit*1000>distance){
 					console.log("n = "+n+" ,end:"+end+"distance:"+distance);
 					route.push(obj);
+					store.push(storeName);
 					n++;
 					callback(i,markerList,callback);
 				}
@@ -121,15 +121,15 @@ function calcRoute(limit,value,i,markerList,markerLength,callback){
 
 //show result route on tinymap//
 var callbackCount = 0;
-var storeSelect= function(route){
+var storeSelect= function(route,store){
 	console.log(route);
 	var markerObj;
 	var marker = [];
 	for(var i = 0 ;i < route.length;i++){
 		markerObj = {
 			addr:route[i].to,
-			text:'fuck',
-			label:'ffff'
+			text:store[i],
+			label:store[i]
 		};
 		marker.push(markerObj);
 	}
@@ -147,6 +147,7 @@ var getData = function(callback){
 		url:storeUrl,
 		type:'csv'
 	},function(data){
+		console.log(data);
 		var i$,latLng,markerObj,obj;
 		for(i$ = 0 ; i$ < data.length;i$++){
 			obj = data[i$];
