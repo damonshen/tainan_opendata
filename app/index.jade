@@ -5,43 +5,15 @@ block body
       div(data-role='header', data-position='inline')
         h1 Hackthon
       //-button#test(type='button' data-role='button') test
-      #sports_choice(data-role='content', data-theme='a', role='main')
-        div(data-role='fieldcontain')
-        fieldset.ui-grid-a
-          legend 選擇活動類型:
-          .ui-block-a
-            input#radio-choice-1(type='radio', name='radio-choice-1', value='音樂', checked='checked')
-            label(for='radio-choice-1') 音樂
-            input#radio-choice-2(type='radio', name='radio-choice-1', value='戲劇')
-            label(for='radio-choice-2') 戲劇
-            input#radio-choice-3(type='radio', name='radio-choice-1', value='舞蹈')
-            label(for='radio-choice-3') 舞蹈
-            input#radio-choice-4(type='radio', name='radio-choice-1', value='親子')
-            label(for='radio-choice-4') 親子
-          .ui-block-b
-            input#radio-choice-5(type='radio', name='radio-choice-1', value='展覽', checked='checked')
-            label(for='radio-choice-5') 展覽
-            input#radio-choice-6(type='radio', name='radio-choice-1', value='電影')
-            label(for='radio-choice-6') 電影
-            input#radio-choice-7(type='radio', name='radio-choice-1', value='綜藝')
-            label(for='radio-choice-7') 綜藝
-            input#radio-choice-8(type='radio', name='radio-choice-1', value='其他')
-            label(for='radio-choice-8') 其他
-
-        
-          
-        a#sports_submit(href='#sports_map', data-role='button', data-transition='fade') To sports map
+      div#content_First
+        #Title 找尋藝文活動<br>週邊美食
+      a#sports_submit(href='#sports_map', data-role='button', data-transition='fade') Start
     #sports_map(data-role='page', data-theme='a')
       div(data-role='header', data-position='inline')
         h1 Hackthon
-      fieldset(data-role='controlgroup', data-mini='true',data-type='horizontal')
-        input#radio-mini-a1(type='radio', name='radio-choice-1', value='choice-1')
-        label(for='radio-mini-a1') Map
-        input#radio-mini-a2(type='radio', name='radio-choice-1', value='choice-2', checked='checked')
-        label(for='radio-mini-a2') List
       #List_Sports
       #map(style='display:none')
-      a(href='#food_choice', data-role='button', data-transition='fade') Food Link
+      a#switch2Food(href='#food_choice', data-role='button', data-transition='fade') Food Link
     #food_choice(data-role='page', data-theme='a')
         div(data-role='header', data-position='inline')
           h1 Hackthon
@@ -66,7 +38,7 @@ block body
             label(for='radio-choice-7') 地方特產
             input#radio-choice-8(type='radio', name='radio-choice-1', value='8')
             label(for='radio-choice-8') 素食
-        a#food_submit(href='#food_map', data-role='button', data-transition='fade') Food Map
+        a#food_submit.graybutton(href='#food_map', data-role='button', data-transition='fade') Food Map
     #food_map(data-role='page', data-theme='a')
       div(data-role='header', data-position='inline')
           h1 Hackthon
@@ -77,4 +49,4 @@ block body
         label(for='radio-mini-b2') List
       #List_Food(data-role="collapsible-set",style='display:none')
       #food
-      a(href='index.html', data-role='button', data-transition='fade') Sports choice
+      a#final.graybutton(href='index.html', data-role='button', data-transition='fade') Sports choice
