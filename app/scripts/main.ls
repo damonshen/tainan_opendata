@@ -121,7 +121,8 @@ function calcRoute(limit,value,i,markerList,markerLength,content,callback){
 					route.push(obj);
 					store.push(storeName);
 					n++;
-					content += "<div data-role='collapsible'><h3>"+markerList[i].text+"</h3><p><div class='address'>"+markerList[i].addr+"</div></p></div>";
+					content += "<div data-role='collapsible'><h3>"+markerList[i].text+"</h3><p class = 'loc'>"+markerList[i].addr+"</p><p>"+markerList[i].phone+"<br>"+markerList[i].time+"<br>"+markerList[i].detail+"</p></div>";
+>>>>>>> 9ce24c1665e96cafe04857ce1761cb5742fbe670
 					callback(content,i,markerList,callback);
 				}
 			}
