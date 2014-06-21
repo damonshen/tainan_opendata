@@ -295,7 +295,6 @@ function GetSportList(){
      $('#sports_choice :checked').each(function() {
       allVals.push($(this).val());
      });
-	alert(allVals);
    $.get('/getData', PrintSportsdata);
 }
 function PrintFooddata(data){
