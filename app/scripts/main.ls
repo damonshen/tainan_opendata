@@ -161,7 +161,7 @@ var showRoute = function(resultList,start){
 ``
 
 #select data from server and transform to JSON array
-selectData = (type, callback)->
+selectData = (type, category, callback)->
   switch type
   #if the request is for restaurant
   case 'restaurant'
