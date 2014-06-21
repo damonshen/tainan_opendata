@@ -240,6 +240,7 @@ $ ->
   $ \#test .bind 'click', ->
     $ .get \/getData, (data)->
       console.log data
+
   #activity when navigation to food_choice
   $ document .on 'pagebeforehide', '#food_choice', (e, ui)->
     foodVal = []
@@ -254,12 +255,25 @@ $ ->
     , 3000
 
 
+
 ``
 $(function() {
    $("input[type='radio']").checkboxradio();
    $("#radioButton").click();
-   //PrintFooddata();
+   $('#sports_submit').click(GetSportList);
+   		
+   
  });
+function GetSportList(){
+	var allVals = [];
+     $('#sports_choice :checked').each(function() {
+      allVals.push($(this).val());
+     });
+	alert(allVals);
+   $.get('\getData', function(data){
+   	PrintSportsdata(data);
+   	});
+}
 function PrintFooddata(data){
 	//console.log(JSON.stringify(data));
 	//console.log(data[0].addr);
@@ -272,6 +286,18 @@ function PrintFooddata(data){
 		content += "<div data-role='collapsible'><h3>"+data[i].text+"</h3><p>"+data[i].addr+"</p></div>";
 	}
 	$(content).appendTo("#List_Food");
+	$('div[data-role=collapsible]').collapsible();
+}
+function PrintSportsdata(data){
+	document.getElementById("List_Sports").innerHTML = "";
+	var content = "";
+	for(i=0;i<data.length;i++)
+	{
+		//document.getElementById("List_Sports").innerHTML+= data[i].addr +" - "+ data[i].text+"<br>";
+		
+		content += "<div data-role='collapsible'><h3>"+data[i].title+"</h3><p>"+data[i].addr+"</p></div>";
+	}
+	$(content).appendTo("#List_Sports");
 	$('div[data-role=collapsible]').collapsible();
 }
  ``
