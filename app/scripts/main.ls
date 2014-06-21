@@ -3,7 +3,6 @@ mapOption =
   * center: '台南市政府'
     zoom: 13
 
-
 #go button used to trigger distance measured and select the nearest store
 ``
 var loop_stop = 0;
@@ -12,8 +11,9 @@ $(document).ready(function(){$('#go').click(function(){
 	getResultStore();
 })});
 
-$(document).ready(function(){$('#clear').click(function(){
-	$(document).ready(function(){$('#map').tinyMap('clear','direction')});
+$(document).ready(function(){
+	$('#clear').click(function(){
+		$(document).ready(function(){$('#map').tinyMap('clear','direction')});
 	});
 	$('#radio-mini-a2').click(function(){
 		$('#map').css('display','none');
@@ -23,11 +23,15 @@ $(document).ready(function(){$('#clear').click(function(){
 		$('#map').css('display','block');
 	});
 	$('#radio-mini-b2').click(function(){
+		$('#List_Food').css('display','block');
 		$('#food').css('display','none');
 	});
 	$('#radio-mini-b1').click(function(){
-		$('#food').tinyMap(mapOption);
+		$('#List_Food').css('display','none');
 		$('#food').css('display','block');
+	});
+	$('#food_submit').click(function(){
+		$('#food').tinyMap(mapOption);
 	});
 });
 ``
@@ -51,12 +55,18 @@ var getResultStore = function(){
 /*control the for loop index to get distance result*/
 var route = [];
 var store = [];
-var loop = function(i,markerList,callback){
+var loop = function(content,i,markerList,callback){
 	if(n<5){
 		i++;
-		calcRoute(4,"driving",i,markerList,markerList.length,callback);
+		console.log("i="+i);
+		console.log("all length="+markerList.length);
+		calcRoute(5,"driving",i,markerList,markerList.length,content,callback);
 	}
 	else{
+		console.log("here");
+		console.log(content);
+		$(content).appendTo("#List_Food");
+		$('div[data-role=collapsible]').collapsible();
 		storeSelect(route,store);
 	}
 }
@@ -66,7 +76,7 @@ var loop = function(i,markerList,callback){
 var directionsService = new google.maps.DirectionsService();
 var dist;
 var test = 0;
-function calcRoute(limit,value,i,markerList,markerLength,callback){
+function calcRoute(limit,value,i,markerList,markerLength,content,callback){
 		var start = "台南市安平區永華三街270號";
 		var end = markerList[i].addr;
 		var storeName = markerList[i].text;
@@ -94,11 +104,12 @@ function calcRoute(limit,value,i,markerList,markerLength,callback){
 					travel:value
 				}
 				if(limit*1000>distance){
-					console.log("n = "+n+" ,end:"+end+"distance:"+distance);
+					console.log("n = "+i+" ,end:"+end+"distance:"+distance);
 					route.push(obj);
 					store.push(storeName);
 					n++;
-					callback(i,markerList,callback);
+					content += "<div data-role='collapsible'><h3>"+markerList[i].text+"</h3><p>"+markerList[i].addr+"</p></div>";
+					callback(content,i,markerList,callback);
 				}
 			}
 			else if(status == google.maps.DirectionsStatus.ZERO_RESULTS){
@@ -123,7 +134,6 @@ function calcRoute(limit,value,i,markerList,markerLength,callback){
 //show result route on tinymap//
 var callbackCount = 0;
 var storeSelect= function(route,store){
-	console.log(route);
 	var markerObj;
 	var marker = [];
 	for(var i = 0 ;i < route.length;i++){
@@ -135,7 +145,8 @@ var storeSelect= function(route,store){
 		marker.push(markerObj);
 	}
 	console.log(marker);
-	$(document).ready(function(){$('#map').tinyMap('modify',{direction:route,marker:marker})});
+	$('#food').tinyMap('panto','台南市安平區永華三街270號');
+	$('#food').tinyMap('modify',{marker:marker});
 }
 ``
 
@@ -250,7 +261,8 @@ $ ->
     console.log foodVal
     selectData 'restaurant', foodVal, PrintFooddata
 
-``$(function() {
+``
+$(function() {
    $("input[type='radio']").checkboxradio();
    $("#radioButton").click();
    //PrintFooddata();
@@ -260,13 +272,16 @@ function PrintFooddata(data){
 	//console.log(data[0].addr);
 	document.getElementById("List_Food").innerHTML = "";
 	var content = "";
-	for(i=0;i<data.length;i++)
+	var i = 0 ;
+	console.log(data);
+	console.log("length = "+data.length);
+	loop(content,i,data,loop);
+	/*for(i=0;i<data.length;i++)
 	{
 		//document.getElementById("List_Food").innerHTML+= data[i].addr +" - "+ data[i].text+"<br>";
-		
 		content += "<div data-role='collapsible'><h3>"+data[i].text+"</h3><p>"+data[i].addr+"</p></div>";
-	}
-	$(content).appendTo("#List_Food");
-	$('div[data-role=collapsible]').collapsible();
+	}*/
+	//$(content).appendTo("#List_Food");
+	//$('div[data-role=collapsible]').collapsible();
 }
  ``
