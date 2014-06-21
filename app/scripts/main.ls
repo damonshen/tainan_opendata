@@ -17,11 +17,19 @@ $(document).ready(function(){$('#go').click(function(){
 $(document).ready(function(){$('#clear').click(function(){
 	$(document).ready(function(){$('#map').tinyMap('clear','direction')});
 	});
-	$('#sports_submit').click(function(){
-		$('#map').tinyMap(mapOption);
+	$('#radio-mini-a2').click(function(){
+		$('#map').css('display','none');
 	});
-	$('#food_submit').click(function(){
+	$('#radio-mini-a1').click(function(){
+		$('#map').tinyMap(mapOption);
+		$('#map').css('display','block');
+	});
+	$('#radio-mini-b2').click(function(){
+		$('#food').css('display','none');
+	});
+	$('#radio-mini-b1').click(function(){
 		$('#food').tinyMap(mapOption);
+		$('#food').css('display','block');
 	});
 });
 ``
@@ -115,7 +123,18 @@ function calcRoute(limit,value,i,markerList,markerLength,callback){
 var callbackCount = 0;
 var storeSelect= function(route){
 	console.log(route);
-	$(document).ready(function(){$('#map').tinyMap('modify',{direction:route})});
+	var markerObj;
+	var marker = [];
+	for(var i = 0 ;i < route.length;i++){
+		markerObj = {
+			addr:route[i].to,
+			text:'fuck',
+			label:'ffff'
+		};
+		marker.push(markerObj);
+	}
+	console.log(marker);
+	$(document).ready(function(){$('#map').tinyMap('modify',{direction:route,marker:marker})});
 }
 ``
 
