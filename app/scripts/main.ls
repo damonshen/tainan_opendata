@@ -65,7 +65,6 @@ var loop = function(content,i,markerList,callback){
 		calcRoute(5,"driving",i,markerList,markerList.length,content,callback);
 	}
 	else{
-		console.log("here");
 		console.log(content);
 		$(content).appendTo("#List_Food");
 		$('div[data-role=collapsible]').collapsible({
@@ -122,7 +121,7 @@ function calcRoute(limit,value,i,markerList,markerLength,content,callback){
 					route.push(obj);
 					store.push(storeName);
 					n++;
-					content += "<div data-role='collapsible'><h3>"+markerList[i].text+"</h3><p>"+markerList[i].addr+"</p></div>";
+					content += "<div data-role='collapsible'><h3>"+markerList[i].text+"</h3><p><div class='address'>"+markerList[i].addr+"</div></p></div>";
 					callback(content,i,markerList,callback);
 				}
 			}
