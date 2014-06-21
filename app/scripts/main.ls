@@ -302,6 +302,7 @@ $ ->
 
 ``
 $(function() {
+   $('.tlt').textillate();
    $("input[type='radio']").checkboxradio();
    $("#radioButton").click();
    $('#sports_submit').click(GetSportList);
