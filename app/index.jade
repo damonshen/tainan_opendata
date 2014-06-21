@@ -22,7 +22,7 @@ block body
           label(for='radio-choice-f1') 土風舞
           input#radio-choice-g1(type='checkbox', name='radio-choice-a1', value='7')
           label(for='radio-choice-g1') 太極拳
-          button#go Go
+          a#go(href='#sports_map',data-role='button',data-transition='fade') Go
           button#clear clean
         a#sports_submit(href='#sports_map', data-role='button', data-transition='fade') To sports map
     #sports_map(data-role='page', data-theme='a')
@@ -57,5 +57,5 @@ block body
         label(for='radio-mini-b1') Map
         input#radio-mini-b2(type='radio', name='radio-mini', value='choice-2')
         label(for='radio-mini-b2') List
-      #map_food
+      #food
       a(href='index.html', data-role='button', data-transition='fade') Sports choice

@@ -8,12 +8,21 @@ mapOption =
 ``
 var stop = 0;
 $(document).ready(function(){$('#go').click(function(){
+/*	getData();*/
+/*	console.log(markerList);*/
 	getResultStore();
 })});
 
 $(document).ready(function(){$('#clear').click(function(){
 	$(document).ready(function(){$('#map').tinyMap('clear','direction')});
-})});
+	});
+	$('#sports_submit').click(function(){
+		$('#map').tinyMap(mapOption);
+	});
+	$('#food_submit').click(function(){
+		$('#food').tinyMap(mapOption);
+	});
+});
 ``
 ``
 var result = [];
@@ -136,6 +145,7 @@ var getData = function(callback){
 	});
 }
 
+
 ``
 #show the direction to all the result of result , but not used yet
 ``
@@ -151,10 +161,6 @@ var showRoute = function(resultList,start){
 	$('map').tinyMap({direction:resultStore});
 }
 ``
-
-
-
-
 
 #select data from server and transform to JSON array
 selectData = (type, callback)->
@@ -209,7 +215,6 @@ selectData = (type, callback)->
 
 #set the document ready
 $ ->
-  $ \#map .tinyMap mapOption
   $ \#test .bind 'click', ->
     selectData 'restaurant', (data)->
       console.log JSON.stringify data
