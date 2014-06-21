@@ -27,12 +27,15 @@ $(document).ready(function(){$('#clear').click(function(){
 	});
 	$('#radio-mini-b2').click(function(){
 		$('#food').css('display','none');
+		$('#List_Food').css('display','block');
 	});
 	$('#radio-mini-b1').click(function(){
 		$('#food').tinyMap(mapOption);
+		$('#List_Food').css('display','none');
 		$('#food').css('display','block');
 	});
 });
+
 ``
 ``
 var result = [];
@@ -152,10 +155,11 @@ var getData = function(callback){
 		for(i$ = 0 ; i$ < data.length;i$++){
 			obj = data[i$];
 			addr = obj.店家地址;
+			console.log(obj.店家電話);
 			markerObj = {
 				addr : addr,
-				text : obj.餐飲店家名稱
-			};
+				text : obj.餐飲店家名稱,
+		};
 			markerList.push(markerObj);
 		}
 		if(callback && typeof(callback)==="function"){
@@ -199,6 +203,9 @@ selectData = (type, category, callback)->
           dataObj =
             * addr: obj.店家地址
               text: obj.餐飲店家名稱
+              phone: obj.店家電話
+              detail: obj.店家簡述
+              time: obj.營業時間
           #push the info data into array
           resultList.push(dataObj)
         else continue
@@ -263,9 +270,22 @@ function PrintFooddata(data){
 	{
 		//document.getElementById("List_Food").innerHTML+= data[i].addr +" - "+ data[i].text+"<br>";
 		
-		content += "<div data-role='collapsible'><h3>"+data[i].text+"</h3><p>"+data[i].addr+"</p></div>";
+		content += "<div data-role='collapsible'><h3>"+data[i].text+"</h3><p>"+data[i].addr+"<br>"+data[i].phone+"<br>"+data[i].time+"<br>"+data[i].detail+"</p></div>";
 	}
 	$(content).appendTo("#List_Food");
-	$('div[data-role=collapsible]').collapsible();
+	$('div[data-role=collapsible]').collapsible({
+		expand: function(){
+			if($(this).context.childElementCount == 2)
+			{
+				$("<div id = 'map_in_list' style = 'height:300px'></div>").appendTo(this);
+				$('#map_in_list').tinyMap(mapOption);
+			}
+		},
+		collapse: function(){
+			if($(this).context.childElementCount == 3)
+				$(this).context.childNodes[2].remove();
+		}
+	});
+	
 }
  ``
