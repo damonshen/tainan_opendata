@@ -26,12 +26,13 @@ block body
           button#clear clean
         a#sports_submit(href='#sports_map', data-role='button', data-transition='fade') To sports map
     #sports_map(data-role='page', data-theme='a')
-      fieldset(data-role='controlgroup',data-type='horizontal')
-        input#radio-mini-a1(type='radio', name='radio-choice-1', value='choice-1', checked='checked')
+      fieldset(data-role='controlgroup', data-mini='true',data-type='horizontal')
+        input#radio-mini-a1(type='radio', name='radio-choice-1', value='choice-1')
         label(for='radio-mini-a1') Map
-        input#radio-mini-a2(type='radio', name='radio-choice-1', value='choice-2')
+        input#radio-mini-a2(type='radio', name='radio-choice-1', value='choice-2', checked='checked')
         label(for='radio-mini-a2') List
-      #map
+      #List_Sports
+      #map(style='display: none')
       a(href='#food_choice', data-role='button', data-transition='fade') Food Link
     #food_choice(data-role='page', data-theme='a')
       fieldset(data-role='controlgroup', data-type='horizontal')
@@ -53,9 +54,10 @@ block body
       a#food_submit(href='#food_map', data-role='button', data-transition='fade') Food Map
     #food_map(data-role='page', data-theme='a')
       fieldset(data-role='controlgroup', data-mini='true', data-type='horizontal')
-        input#radio-mini-b1(type='radio', name='radio-mini', value='choice-1', checked='checked')
+        input#radio-mini-b1(type='radio', name='radio-mini', value='choice-1')
         label(for='radio-mini-b1') Map
-        input#radio-mini-b2(type='radio', name='radio-mini', value='choice-2')
+        input#radio-mini-b2(type='radio', name='radio-mini', value='choice-2', checked='checked')
         label(for='radio-mini-b2') List
-      #food
+      #List_Food
+      #map_food
       a(href='index.html', data-role='button', data-transition='fade') Sports choice
