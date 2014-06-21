@@ -1,6 +1,7 @@
 (function(){
-  var request, url, show;
+  var request, fs, url, show, getActs;
   request = require('request');
+  fs = require('fs');
   url = 'http://odata.tn.edu.tw/schoolapi/api/getdata';
   show = function(url, type, callback){
     console.log("server get url: " + url);
@@ -30,5 +31,14 @@
       }
     });
   };
+  getActs = function(callback){
+    return fs.readFile('./server/scripts/acts.txt', function(err, data){
+      console.log(err + ", " + data);
+      if (!err) {
+        return typeof callback === 'function' ? callback(JSON.parse(data)) : void 8;
+      }
+    });
+  };
   exports.show = show;
+  exports.getActs = getActs;
 }).call(this);

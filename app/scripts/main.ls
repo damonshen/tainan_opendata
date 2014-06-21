@@ -217,8 +217,8 @@ selectData = (type, category, callback)->
 #set the document ready
 $ ->
   $ \#test .bind 'click', ->
-    selectData 'restaurant', (data)->
-      console.log JSON.stringify data
+    $ .get \/getData, (data)->
+      console.log data
   #activity when navigation to food_choice
   $ document .on 'pagebeforehide', '#food_choice', (e, ui)->
     foodVal = []
@@ -227,12 +227,17 @@ $ ->
       foodVal .push parseInt val
     console.log foodVal
     selectData 'restaurant', foodVal, PrintFooddata
+  $ document .on 'pagebeforecreate', '#sports_map', (e, ui)->
+    setTimeout ->
+      console.log 'wait'
+    , 3000
 
-``$(function() {
+
+``
+$(function() {
    $("input[type='radio']").checkboxradio();
    $("#radioButton").click();
    //PrintFooddata();
-  
  });
 function PrintFooddata(data){
 	//console.log(JSON.stringify(data));

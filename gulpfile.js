@@ -114,9 +114,16 @@ gulp.task('connect', ['serverScripts'], function () {
     app.get('/getData', function(request, response){
       var url = request.query.url
       var type = request.query.type
-      getData.show(url, type, function(data){
-        response.send(data);
-      });
+      if(url == undefined){
+        getData.getActs(function(data){
+          response.send(data);
+        });
+      }
+      else{
+        getData.show(url, type, function(data){
+          response.send(data);
+        });
+      }
     });
     app.use(require('connect-livereload')({ port: 35729 }))
       .use(express.static('app'))
