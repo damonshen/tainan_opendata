@@ -33,7 +33,6 @@
   };
   getActs = function(callback){
     return fs.readFile('./server/scripts/acts.txt', function(err, data){
-      console.log(err + ", " + data);
       if (!err) {
         return typeof callback === 'function' ? callback(JSON.parse(data)) : void 8;
       }
