@@ -6,6 +6,7 @@ mapOption =
 
 #go button used to trigger distance measured and select the nearest store
 ``
+var loop_stop = 0;
 var stop = 0;
 $(document).ready(function(){$('#go').click(function(){
 	getResultStore();
@@ -257,8 +258,15 @@ $ ->
 function PrintFooddata(data){
 	//console.log(JSON.stringify(data));
 	//console.log(data[0].addr);
+	document.getElementById("List_Food").innerHTML = "";
+	var content = "";
 	for(i=0;i<data.length;i++)
-	document.getElementById("List_Food").innerHTML+= data[i].addr +" - "+ data[i].text+"<br>";
-
+	{
+		//document.getElementById("List_Food").innerHTML+= data[i].addr +" - "+ data[i].text+"<br>";
+		
+		content += "<div data-role='collapsible'><h3>"+data[i].text+"</h3><p>"+data[i].addr+"</p></div>";
+	}
+	$(content).appendTo("#List_Food");
+	$('div[data-role=collapsible]').collapsible();
 }
  ``
