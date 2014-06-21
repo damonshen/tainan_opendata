@@ -25,7 +25,6 @@ $(document).ready(function(){
 	$('#radio-mini-b2').click(function(){
 		$('#List_Food').css('display','block');
 		$('#food').css('display','none');
-		$('#List_Food').css('display','block');
 	});
 	$('#radio-mini-b1').click(function(){
 		$('#food').tinyMap(mapOption);
