@@ -8,6 +8,7 @@ mapOption =
 ``
 var stop = 0;
 $(document).ready(function(){$('#go').click(function(){
+	$('#map').tinyMap(mapOption);
 /*	getData();*/
 /*	console.log(markerList);*/
 	getResultStore();
@@ -163,7 +164,7 @@ var showRoute = function(resultList,start){
 ``
 
 #select data from server and transform to JSON array
-selectData = (type, category, callback)->
+selectData = (type, callback)->
   switch type
   #if the request is for restaurant
   case 'restaurant'
@@ -172,18 +173,14 @@ selectData = (type, category, callback)->
       resultList = []
       #get the basic information of each data and push into an array
       for obj in data
-        objCate = parseInt obj.店家分類代碼
-        #if the category of the obj is in the category user selected
-        if ($.inArray objCate, category) > -1
-          latLng =
-            * obj.Y坐標
-            * obj.X坐標
-          dataObj =
-            * addr: latLng
-              text: obj.餐飲店家名稱
-          #push the info data into array
-          resultList.push(dataObj)
-        else continue
+        latLng =
+          * obj.Y坐標
+          * obj.X坐標
+        dataObj =
+          * addr: latLng
+            text: obj.餐飲店家名稱
+        #push the info data into array
+        resultList.push(dataObj)
       callback? resultList
   #if the request is for sport 
   case 'sport'
@@ -222,17 +219,8 @@ $ ->
   $ \#test .bind 'click', ->
     selectData 'restaurant', (data)->
       console.log JSON.stringify data
-  #activity when navigation to food_choice
-  $ document .on 'pagebeforehide', '#food_choice', (e, ui)->
-    foodVal = []
-    $ '#food_choice :checked' .each ->
-      val = $ this .val!
-      foodVal .push parseInt val
-    console.log foodVal
-    selectData 'restaurant', foodVal, (data)->
-      console.log JSON.stringify data
 
 ``$(function() {
    $("input[type='radio']").checkboxradio();
  });
-``
+ ``
