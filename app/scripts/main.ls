@@ -6,7 +6,6 @@ mapOption =
 
 #go button used to trigger distance measured and select the nearest store
 ``
-
 var stop = 0;
 $(document).ready(function(){$('#go').click(function(){
 	getResultStore();
@@ -19,87 +18,93 @@ $(document).ready(function(){$('#clear').click(function(){
 ``
 var result = [];
 var num = 0;
+var n = 0;
 var distArray = [];
 var getResultStore = function(){
 	var List = [];
 	var obj;
 	getData(function(){
-		var i ;
+		var i = 0 ;
 		var temp;
-		for(i = 0 ; i<markerList.length;i++){
-			var start = "台南市安平區永華三街270號";
-			var store = markerList[i].addr;
-			var storeObj = markerList[i];
-			calcRoute(4,"driving",start,store,i,markerList.length);
-		}
+		loop(i,markerList,loop);
+
 	});
+}
+``
+``
+/*control the for loop index to get distance result*/
+var route = [];
+var loop = function(i,markerList,callback){
+	if(n<5){
+		i++;
+		calcRoute(4,"driving",i,markerList,markerList.length,callback);
+	}
+	else{
+		storeSelect(route);
+	}
 }
 ``
 ``
 //calculate the distance between the start and store//
 var directionsService = new google.maps.DirectionsService();
 var dist;
-var n = 0;
-var route = [];
-function calcRoute(limit,value,start,end,index,markerLength){
-	var mode;
-	var distance;
-	if(value=='driving')
-		mode = google.maps.TravelMode.DRIVING;
-	else if(value =='walking')
-		mode = google.maps.TravelMode.WALKING;
-	else
-		mode = google.maps.TravelMode.BICYCLING;
-	var request = {
-		origin:start,
-		destination:end,
-		travelMode:mode
-	};
-	var result;
-	setTimeout(function(){directionsService.route(request,function(result,status){
-		if(status == google.maps.DirectionsStatus.OK){
-			distance = result.routes[0].legs[0].distance.value;
-			var obj = {
-				from:start,
-				to:end,
-				travel:value
-			}
-			if(limit*1000>distance){
-				console.log("n = "+n+" ,end:"+end+"distance:"+distance);
-				route.push(obj);
-				n++;
-				if(n==10){
-					stop = 1;
+var test = 0;
+function calcRoute(limit,value,i,markerList,markerLength,callback){
+		var start = "台南市安平區永華三街270號";
+		var end = markerList[i].addr;
+		var mode;
+		var distance;
+		if(value=='driving')
+			mode = google.maps.TravelMode.DRIVING;
+		else if(value =='walking')
+			mode = google.maps.TravelMode.WALKING;
+		else
+			mode = google.maps.TravelMode.BICYCLING;
+		var request = {
+			origin:start,
+			destination:end,
+			travelMode:mode
+		};
+		var result;
+
+		directionsService.route(request,function(result,status){
+			if(status == google.maps.DirectionsStatus.OK){
+				distance = result.routes[0].legs[0].distance.value;
+				var obj = {
+					from:start,
+					to:end,
+					travel:value
+				}
+				if(limit*1000>distance){
+					console.log("n = "+n+" ,end:"+end+"distance:"+distance);
+					route.push(obj);
+					n++;
+					callback(i,markerList,callback);
 				}
 			}
-		}
-		else if(status == google.maps.DirectionsStatus.ZERO_RESULTS){
-			console.log("zero result");
-		}
-		else if(status == google.maps.DirectionsStatus.OVER_QUERY_LIMIT){
-			if(n==10){
-				stop = 1;
+			else if(status == google.maps.DirectionsStatus.ZERO_RESULTS){
+				console.log("zero result");
+			}
+			else if(status == google.maps.DirectionsStatus.OVER_QUERY_LIMIT){
+				console.log("over query limit");
+			}
+			else if(status == google.maps.DirectionsStatus.REQUEST_DENIED){
+				console.log("request deny");
+			}
+			else if(status == google.maps.DirectionsStatus.INVALID_REQUEST){
+				console.log("invalid request");
 			}
 			else{
-				calcRoute(limit,value,start,end,index,markerLength);
+				console.log("unknown error");
 			}
 		}
-		else if(status == google.maps.DirectionsStatus.REQUEST_DENIED){
-			console.log("request deny");
-		}
-		else if(status == google.maps.DirectionsStatus.INVALID_REQUEST){
-			console.log("invalid request");
-		}
-		else{
-			console.log("unknown error");
-		}
-		storeSelect(route,markerLength);
-	})},200);
+		);
 }
 
-//show result route//
+//show result route on tinymap//
 var callbackCount = 0;
-var storeSelect= function(route,markerLength){
+var storeSelect= function(route){
+	console.log(route);
 	$(document).ready(function(){$('#map').tinyMap('modify',{direction:route})});
 }
 ``
