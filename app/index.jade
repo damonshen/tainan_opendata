@@ -4,28 +4,36 @@ block body
     #sports_select(data-role='page', data-theme='a')
       div(data-role='header', data-position='inline')
         h1 Hackthon
-      //button#test(type='button' data-role='button') test
+      //-button#test(type='button' data-role='button') test
       #sports_choice(data-role='content', data-theme='a', role='main')
-        fieldset(data-role='controlgroup', data-type='horizontal')
-          legend 選擇你今天想做的運動:
-          input#radio-choice-a1(type='checkbox', name='radio-choice-a1', value='桌球')
-          label(for='radio-choice-a1') 桌球
-          input#radio-choice-b1(type='checkbox', name='radio-choice-a1', value='籃球')
-          label(for='radio-choice-b1') 籃球
-          input#radio-choice-c1(type='checkbox', name='radio-choice-a1', value='跑步')
-          label(for='radio-choice-c1') 跑步
-          input#radio-choice-d1(type='checkbox', name='radio-choice-a1', value='游泳')
-          label(for='radio-choice-d1') 游泳
-          input#radio-choice-e1(type='checkbox', name='radio-choice-a1', value='棒球')
-          label(for='radio-choice-e1') 棒球
-          input#radio-choice-f1(type='checkbox', name='radio-choice-a1', value='土風舞')
-          label(for='radio-choice-f1') 土風舞
-          input#radio-choice-g1(type='checkbox', name='radio-choice-a1', value='太極拳')
-          label(for='radio-choice-g1') 太極拳
-          a#go(href='#sports_map',data-role='button',data-transition='fade') Go
-          button#clear clean
+        div(data-role='fieldcontain')
+        fieldset.ui-grid-a
+          legend 選擇活動類型:
+          .ui-block-a
+            input#radio-choice-1(type='radio', name='radio-choice-1', value='音樂', checked='checked')
+            label(for='radio-choice-1') 音樂
+            input#radio-choice-2(type='radio', name='radio-choice-1', value='戲劇')
+            label(for='radio-choice-2') 戲劇
+            input#radio-choice-3(type='radio', name='radio-choice-1', value='舞蹈')
+            label(for='radio-choice-3') 舞蹈
+            input#radio-choice-4(type='radio', name='radio-choice-1', value='親子')
+            label(for='radio-choice-4') 親子
+          .ui-block-b
+            input#radio-choice-5(type='radio', name='radio-choice-1', value='展覽', checked='checked')
+            label(for='radio-choice-5') 展覽
+            input#radio-choice-6(type='radio', name='radio-choice-1', value='電影')
+            label(for='radio-choice-6') 電影
+            input#radio-choice-7(type='radio', name='radio-choice-1', value='綜藝')
+            label(for='radio-choice-7') 綜藝
+            input#radio-choice-8(type='radio', name='radio-choice-1', value='其他')
+            label(for='radio-choice-8') 其他
+
+        
+          
         a#sports_submit(href='#sports_map', data-role='button', data-transition='fade') To sports map
     #sports_map(data-role='page', data-theme='a')
+      div(data-role='header', data-position='inline')
+        h1 Hackthon
       fieldset(data-role='controlgroup', data-mini='true',data-type='horizontal')
         input#radio-mini-a1(type='radio', name='radio-choice-1', value='choice-1')
         label(for='radio-mini-a1') Map
@@ -35,24 +43,33 @@ block body
       #map(style='display:none')
       a(href='#food_choice', data-role='button', data-transition='fade') Food Link
     #food_choice(data-role='page', data-theme='a')
-      fieldset(data-role='controlgroup', data-type='horizontal')
-        legend 選擇運動完想吃的食物形態:
-        input#radio-choice-a1(type='checkbox', name='radio-choice-a1', value='1')
-        label(for='radio-choice-a1') 異國料理
-        input#radio-choice-b1(type='checkbox', name='radio-choice-a1', value='2')
-        label(for='radio-choice-b1') 火烤料理
-        input#radio-choice-c1(type='checkbox', name='radio-choice-a1', value='3')
-        label(for='radio-choice-c1') 中式美食
-        input#radio-choice-d1(type='checkbox', name='radio-choice-a1', value='4')
-        label(for='radio-choice-d1') 夜市小吃
-        input#radio-choice-e1(type='checkbox', name='radio-choice-a1', value='5')
-        label(for='radio-choice-e1') 甜點冰品
-        input#radio-choice-f1(type='checkbox', name='radio-choice-a1', value='7')
-        label(for='radio-choice-f1') 地方特產
-        input#radio-choice-g1(type='checkbox', name='radio-choice-a1', value='8')
-        label(for='radio-choice-g1') 素食
-      a#food_submit(href='#food_map', data-role='button', data-transition='fade') Food Map
+        div(data-role='header', data-position='inline')
+          h1 Hackthon
+        div(data-role='fieldcontain')
+        fieldset.ui-grid-a
+          legend 選擇食物類型:
+          .ui-block-a
+            input#radio-choice-1(type='radio', name='radio-choice-1', value='1', checked='checked')
+            label(for='radio-choice-1') 異國料理
+            input#radio-choice-2(type='radio', name='radio-choice-1', value='2')
+            label(for='radio-choice-2') 火烤料理
+            input#radio-choice-3(type='radio', name='radio-choice-1', value='3')
+            label(for='radio-choice-3') 中式美食
+            input#radio-choice-4(type='radio', name='radio-choice-1', value='4')
+            label(for='radio-choice-4') 夜市小吃
+          .ui-block-b
+            input#radio-choice-5(type='radio', name='radio-choice-1', value='5', checked='checked')
+            label(for='radio-choice-5') 甜點冰品
+            input#radio-choice-6(type='radio', name='radio-choice-1', value='6')
+            label(for='radio-choice-6') 伴手禮
+            input#radio-choice-7(type='radio', name='radio-choice-1', value='7')
+            label(for='radio-choice-7') 地方特產
+            input#radio-choice-8(type='radio', name='radio-choice-1', value='8')
+            label(for='radio-choice-8') 素食
+        a#food_submit(href='#food_map', data-role='button', data-transition='fade') Food Map
     #food_map(data-role='page', data-theme='a')
+      div(data-role='header', data-position='inline')
+          h1 Hackthon
       fieldset(data-role='controlgroup', data-mini='true', data-type='horizontal')
         input#radio-mini-b1(type='radio', name='radio-mini', value='choice-1', checked='checked')
         label(for='radio-mini-b1') Map

@@ -25,8 +25,10 @@ $(document).ready(function(){
 	$('#radio-mini-b2').click(function(){
 		$('#List_Food').css('display','block');
 		$('#food').css('display','none');
+		$('#List_Food').css('display','block');
 	});
 	$('#radio-mini-b1').click(function(){
+		$('#food').tinyMap(mapOption);
 		$('#List_Food').css('display','none');
 		$('#food').css('display','block');
 	});
@@ -34,6 +36,7 @@ $(document).ready(function(){
 		$('#food').tinyMap(mapOption);
 	});
 });
+
 ``
 ``
 var result = [];
@@ -66,7 +69,19 @@ var loop = function(content,i,markerList,callback){
 		console.log("here");
 		console.log(content);
 		$(content).appendTo("#List_Food");
-		$('div[data-role=collapsible]').collapsible();
+		$('div[data-role=collapsible]').collapsible({
+		expand: function(){
+			if($(this).context.childElementCount == 2)
+			{
+				$("<div id = 'map_in_list' style = 'height:300px'></div>").appendTo(this);
+				$('#map_in_list').tinyMap(mapOption);
+			}
+		},
+		collapse: function(){
+			if($(this).context.childElementCount == 3)
+				$(this).context.childNodes[2].remove();
+		}
+	});
 		storeSelect(route,store);
 	}
 }
@@ -164,10 +179,11 @@ var getData = function(callback){
 		for(i$ = 0 ; i$ < data.length;i$++){
 			obj = data[i$];
 			addr = obj.店家地址;
+			console.log(obj.店家電話);
 			markerObj = {
 				addr : addr,
-				text : obj.餐飲店家名稱
-			};
+				text : obj.餐飲店家名稱,
+		};
 			markerList.push(markerObj);
 		}
 		if(callback && typeof(callback)==="function"){
@@ -211,6 +227,9 @@ selectData = (type, category, callback)->
           dataObj =
             * addr: obj.店家地址
               text: obj.餐飲店家名稱
+              phone: obj.店家電話
+              detail: obj.店家簡述
+              time: obj.營業時間
           #push the info data into array
           resultList.push(dataObj)
         else continue
@@ -250,8 +269,9 @@ selectData = (type, category, callback)->
 #set the document ready
 $ ->
   $ \#test .bind 'click', ->
-    selectData 'restaurant', (data)->
-      console.log JSON.stringify data
+    $ .get \/getData, (data)->
+      console.log data
+
   #activity when navigation to food_choice
   $ document .on 'pagebeforehide', '#food_choice', (e, ui)->
     foodVal = []
@@ -260,13 +280,25 @@ $ ->
       foodVal .push parseInt val
     console.log foodVal
     selectData 'restaurant', foodVal, PrintFooddata
+  $ document .on 'pagebeforecreate', '#sports_map', (e, ui)->
+    setTimeout ->
+      console.log 'wait'
+    , 3000
 
 ``
 $(function() {
    $("input[type='radio']").checkboxradio();
    $("#radioButton").click();
-   //PrintFooddata();
+   $('#sports_submit').click(GetSportList);
  });
+function GetSportList(){
+	var allVals = [];
+     $('#sports_choice :checked').each(function() {
+      allVals.push($(this).val());
+     });
+	alert(allVals);
+   $.get('/getData', PrintSportsdata);
+}
 function PrintFooddata(data){
 	//console.log(JSON.stringify(data));
 	//console.log(data[0].addr);
@@ -276,12 +308,18 @@ function PrintFooddata(data){
 	console.log(data);
 	console.log("length = "+data.length);
 	loop(content,i,data,loop);
-	/*for(i=0;i<data.length;i++)
+}
+function PrintSportsdata(data){
+	document.getElementById("List_Sports").innerHTML = "";
+	var content = "";
+	var i = 0;
+	console.log(data);
+	for(i=0;i<data.length;i++)
 	{
-		//document.getElementById("List_Food").innerHTML+= data[i].addr +" - "+ data[i].text+"<br>";
-		content += "<div data-role='collapsible'><h3>"+data[i].text+"</h3><p>"+data[i].addr+"</p></div>";
-	}*/
-	//$(content).appendTo("#List_Food");
-	//$('div[data-role=collapsible]').collapsible();
+		//document.getElementById("List_Sports").innerHTML+= data[i].addr +" - "+ data[i].text+"<br>";
+		content += "<div data-role='collapsible'><h3>"+data[i].title+"</h3><p>"+data[i].addr+"</p></div>";
+	}
+	$(content).appendTo("#List_Sports");
+	$('div[data-role=collapsible]').collapsible();
 }
  ``
