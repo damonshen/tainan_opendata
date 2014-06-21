@@ -119,20 +119,17 @@ var getData = function(callback){
 		type:'csv'
 	},function(data){
 		var i$,latLng,markerObj,obj;
-		console.log(data);
 		for(i$ = 0 ; i$ < data.length;i$++){
 			obj = data[i$];
 			addr = obj.店家地址;
 			markerObj = {
 				addr : addr,
-				text : obj.餐廳店家名稱
+				text : obj.餐飲店家名稱
 			};
 			markerList.push(markerObj);
 		}
 		if(callback && typeof(callback)==="function"){
-			callback();
-			console.log("finish");
-		}
+			callback();		}
 	});
 }
 
@@ -173,7 +170,7 @@ selectData = (type, category, callback)->
             * obj.Y坐標
             * obj.X坐標
           dataObj =
-            * addr: latLng
+            * addr: obj.店家地址
               text: obj.餐飲店家名稱
           #push the info data into array
           resultList.push(dataObj)
@@ -224,10 +221,19 @@ $ ->
       val = $ this .val!
       foodVal .push parseInt val
     console.log foodVal
-    selectData 'restaurant', foodVal, (data)->
-      console.log JSON.stringify data
+    selectData 'restaurant', foodVal, PrintFooddata
 
 ``$(function() {
    $("input[type='radio']").checkboxradio();
+   $("#radioButton").click();
+   //PrintFooddata();
+  
  });
-``
+function PrintFooddata(data){
+	//console.log(JSON.stringify(data));
+	//console.log(data[0].addr);
+	for(i=0;i<data.length;i++)
+	document.getElementById("List_Food").innerHTML+= data[i].addr +" - "+ data[i].text+"<br>";
+
+}
+ ``
