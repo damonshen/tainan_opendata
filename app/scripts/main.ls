@@ -330,7 +330,7 @@ function PrintSportsdata(data){
 	for(i=0;i<data.length;i++)
 	{
 		//document.getElementById("List_Sports").innerHTML+= data[i].addr +" - "+ data[i].text+"<br>";
-		content += "<div data-role='collapsible'><h3>"+data[i].title+"</h3><p>"+data[i].addr+"</p></div>";
+		content += "<div data-role='collapsible'><h3>"+data[i].title+"</h3><p>"+data[i].addr+"</p><p>"+data[i].time+"</p></div>";
 	}
 	$(content).appendTo("#List_Sports");
 	$('div[data-role=collapsible]').collapsible();
