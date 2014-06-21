@@ -1,26 +1,26 @@
 extends layout
 
 block body
-    div(data-role='page', data-theme='a')
+    #sports_select(data-role='page', data-theme='a')
       div(data-role='header', data-position='inline')
         h1 Hackthon
       //button#test(type='button' data-role='button') test
       #sports_choice(data-role='content', data-theme='a', role='main')
         fieldset(data-role='controlgroup', data-type='horizontal')
           legend 選擇你今天想做的運動:
-          input#radio-choice-a1(type='checkbox', name='radio-choice-a1', value='1')
+          input#radio-choice-a1(type='checkbox', name='radio-choice-a1', value='桌球')
           label(for='radio-choice-a1') 桌球
-          input#radio-choice-b1(type='checkbox', name='radio-choice-a1', value='2')
+          input#radio-choice-b1(type='checkbox', name='radio-choice-a1', value='籃球')
           label(for='radio-choice-b1') 籃球
-          input#radio-choice-c1(type='checkbox', name='radio-choice-a1', value='3')
+          input#radio-choice-c1(type='checkbox', name='radio-choice-a1', value='跑步')
           label(for='radio-choice-c1') 跑步
-          input#radio-choice-d1(type='checkbox', name='radio-choice-a1', value='4')
+          input#radio-choice-d1(type='checkbox', name='radio-choice-a1', value='游泳')
           label(for='radio-choice-d1') 游泳
-          input#radio-choice-e1(type='checkbox', name='radio-choice-a1', value='5')
+          input#radio-choice-e1(type='checkbox', name='radio-choice-a1', value='棒球')
           label(for='radio-choice-e1') 棒球
-          input#radio-choice-f1(type='checkbox', name='radio-choice-a1', value='6')
+          input#radio-choice-f1(type='checkbox', name='radio-choice-a1', value='土風舞')
           label(for='radio-choice-f1') 土風舞
-          input#radio-choice-g1(type='checkbox', name='radio-choice-a1', value='7')
+          input#radio-choice-g1(type='checkbox', name='radio-choice-a1', value='太極拳')
           label(for='radio-choice-g1') 太極拳
           button#go Go
           button#clear clean
