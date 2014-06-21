@@ -1,4 +1,5 @@
 request = require \request
+fs = require \fs
 
 url = \http://odata.tn.edu.tw/schoolapi/api/getdata
 
@@ -21,4 +22,9 @@ show = (url, type, callback)->
           err
         callback? jsonObj
     else callback? \error
+getActs = (callback)->
+  fs.readFile \./server/scripts/acts.txt, (err, data)->
+    if !err
+      callback? JSON.parse data
 exports.show = show
+exports.getActs = getActs
