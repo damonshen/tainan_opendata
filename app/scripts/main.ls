@@ -5,6 +5,7 @@ mapOption =
 
 #go button used to trigger distance measured and select the nearest store
 ``
+var event_name = "";
 var loop_stop = 0;
 var stop = 0;
 $(document).ready(function(){$('#go').click(function(){
@@ -330,9 +331,14 @@ function PrintSportsdata(data){
 	for(i=0;i<data.length;i++)
 	{
 		//document.getElementById("List_Sports").innerHTML+= data[i].addr +" - "+ data[i].text+"<br>";
-		content += "<div data-role='collapsible'><h3>"+data[i].title+"</h3><p>"+data[i].addr+"</p><p>"+data[i].time+"</p></div>";
+		content += "<div data-role='collapsible'><h3>"+data[i].title+"</h3><p class = 'event_addr'>"+data[i].addr+"</p><p>"+data[i].time+"</p></div>";
 	}
 	$(content).appendTo("#List_Sports");
-	$('div[data-role=collapsible]').collapsible();
+	$('div[data-role=collapsible]').collapsible({
+		expand:function(){
+			event_name = $("p.event_addr",this).text();
+			console.log(event_name);
+		}
+	});
 }
  ``
