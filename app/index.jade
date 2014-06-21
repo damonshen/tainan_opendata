@@ -32,7 +32,7 @@ block body
         input#radio-mini-a2(type='radio', name='radio-choice-1', value='choice-2', checked='checked')
         label(for='radio-mini-a2') List
       #List_Sports
-      #map(style='display: none')
+      #map(style='display:none')
       a(href='#food_choice', data-role='button', data-transition='fade') Food Link
     #food_choice(data-role='page', data-theme='a')
       fieldset(data-role='controlgroup', data-type='horizontal')
@@ -58,6 +58,6 @@ block body
         label(for='radio-mini-b1') Map
         input#radio-mini-b2(type='radio', name='radio-mini', value='choice-2', checked='checked')
         label(for='radio-mini-b2') List
-      #List_Food
-      #map_food
+      #List_Food(data-role="collapsible-set")
+      #food(style='display:none')
       a(href='index.html', data-role='button', data-transition='fade') Sports choice
