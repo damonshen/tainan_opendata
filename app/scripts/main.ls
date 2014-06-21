@@ -57,12 +57,11 @@ var getResultStore = function(){
 /*control the for loop index to get distance result*/
 var route = [];
 var store = [];
-var loop = function(content,i,markerList,callback){
-	if(n<5){
+var loop = function(start,content,i,markerList,callback){
+	if(n<5&&i<markerList.length){
 		i++;
 		console.log("i="+i);
-		console.log("all length="+markerList.length);
-		calcRoute(5,"driving",i,markerList,markerList.length,content,callback);
+		calcRoute(start,5,"driving",i,markerList,markerList.length,content,callback);
 	}
 	else{
 		console.log(content);
@@ -71,8 +70,19 @@ var loop = function(content,i,markerList,callback){
 		expand: function(){
 			if($(this).context.childElementCount == 2)
 			{
+				console.log("address:"+$('p.loc',this).text());
+				var end = $('p.loc',this).text();
+				var direction = [];
+				var directionObj = {
+					from:start,
+					to:end,
+					travel:'driving'
+				}
+				console.log(directionObj);
+				direction.push(directionObj);
 				$("<div id = 'map_in_list' style = 'height:300px'></div>").appendTo(this);
 				$('#map_in_list').tinyMap(mapOption);
+				setTimeout(function(){$('#map_in_list').tinyMap('modify',{direction:[directionObj]})},500);
 			}
 		},
 		collapse: function(){
@@ -80,7 +90,10 @@ var loop = function(content,i,markerList,callback){
 				$(this).context.childNodes[2].remove();
 		}
 	});
+		n =0;
 		storeSelect(route,store);
+		store = [];
+		route = [];
 	}
 }
 ``
@@ -89,8 +102,7 @@ var loop = function(content,i,markerList,callback){
 var directionsService = new google.maps.DirectionsService();
 var dist;
 var test = 0;
-function calcRoute(limit,value,i,markerList,markerLength,content,callback){
-		var start = "台南市安平區永華三街270號";
+function calcRoute(start,limit,value,i,markerList,markerLength,content,callback){
 		var end = markerList[i].addr;
 		var storeName = markerList[i].text;
 		var mode;
@@ -122,8 +134,7 @@ function calcRoute(limit,value,i,markerList,markerLength,content,callback){
 					store.push(storeName);
 					n++;
 					content += "<div data-role='collapsible'><h3>"+markerList[i].text+"</h3><p class = 'loc'>"+markerList[i].addr+"</p><p>"+markerList[i].phone+"<br>"+markerList[i].time+"<br>"+markerList[i].detail+"</p></div>";
->>>>>>> 9ce24c1665e96cafe04857ce1761cb5742fbe670
-					callback(content,i,markerList,callback);
+					callback(start,content,i,markerList,callback);
 				}
 			}
 			else if(status == google.maps.DirectionsStatus.ZERO_RESULTS){
@@ -148,6 +159,10 @@ function calcRoute(limit,value,i,markerList,markerLength,content,callback){
 //show result route on tinymap//
 var callbackCount = 0;
 var storeSelect= function(route,store){
+	$('#food').tinyMap('clear','marker');
+	console.log("fuck");
+	console.log(route);
+	console.log(store);
 	var markerObj;
 	var marker = [];
 	for(var i = 0 ;i < route.length;i++){
@@ -299,14 +314,14 @@ function GetSportList(){
    $.get('/getData', PrintSportsdata);
 }
 function PrintFooddata(data){
-	//console.log(JSON.stringify(data));
-	//console.log(data[0].addr);
+	var start =  "台南市安平區永華三街270號";
 	document.getElementById("List_Food").innerHTML = "";
 	var content = "";
 	var i = 0 ;
 	console.log(data);
 	console.log("length = "+data.length);
-	loop(content,i,data,loop);
+	$('#food').tinyMap('clear','marker');
+	loop(start,content,i,data,loop);
 }
 function PrintSportsdata(data){
 	document.getElementById("List_Sports").innerHTML = "";
