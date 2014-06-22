@@ -86,6 +86,9 @@ var loop = function(start,content,i,markerList,callback){
 		expand: function(){
 			if($(this).context.childElementCount == 2)
 			{
+				var top = $(this).context.offsetTop+"px";
+				$('html,body').animate({scrollTop: top},300);
+				
 				console.log("address:"+$('p.loc',this).text());
 				var end = $('p.loc',this).text();
 				var direction = [];
@@ -149,7 +152,7 @@ function calcRoute(start,limit,value,i,markerList,markerLength,content,callback)
 					route.push(obj);
 					store.push(storeName);
 					n++;
-					content += "<div data-role='collapsible' class = 'food_coll'><h3>"+markerList[i].text+"</h3><p class = 'loc'>"+markerList[i].addr+"</p><p>"+markerList[i].phone+"<br>"+markerList[i].time+"<br>"+markerList[i].detail+"</p></div>";
+					content += "<div data-role='collapsible' class = 'food_coll' id = '"+n+"'><h3>"+markerList[i].text+"</h3><p class = 'loc'>"+markerList[i].addr+"</p><p>"+markerList[i].phone+"<br>"+markerList[i].time+"<br>"+markerList[i].detail+"</p></div>";
 					callback(start,content,i,markerList,callback);
 				}
 			}
@@ -352,6 +355,8 @@ function PrintSportsdata(data){
 	$(content).appendTo("#List_Sports");
 	$('div[data-role=collapsible]').collapsible({
 		expand:function(){
+			var top = $(this).context.offsetTop+"px";
+			$('html,body').animate({scrollTop: top},300);
 			event_name = $("p.event_addr",this).text();
 			console.log(event_name);
 		}
