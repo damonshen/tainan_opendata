@@ -92,7 +92,7 @@ var loop = function(start,content,i,markerList,callback){
 		}
 	});
 		n =0;
-		storeSelect(route,store);
+		storeSelect(start,route,store);
 		store = [];
 		route = [];
 	}
@@ -159,7 +159,7 @@ function calcRoute(start,limit,value,i,markerList,markerLength,content,callback)
 
 //show result route on tinymap//
 var callbackCount = 0;
-var storeSelect= function(route,store){
+var storeSelect= function(start,route,store){
 	$('#food').tinyMap('clear','marker');
 	console.log("fuck");
 	console.log(route);
@@ -175,7 +175,7 @@ var storeSelect= function(route,store){
 		marker.push(markerObj);
 	}
 	console.log(marker);
-	$('#food').tinyMap('panto','台南市安平區永華三街270號');
+	$('#food').tinyMap('panto',start);
 	$('#food').tinyMap('modify',{marker:marker});
 }
 ``
@@ -314,7 +314,7 @@ function GetSportList(){
    $.get('/getData', PrintSportsdata);
 }
 function PrintFooddata(data){
-	var start =  "台南市安平區永華三街270號";
+	var start =  event_name;
 	document.getElementById("List_Food").innerHTML = "";
 	var content = "";
 	var i = 0 ;
