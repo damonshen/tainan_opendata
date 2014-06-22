@@ -184,6 +184,12 @@ var storeSelect= function(start,route,store){
 	console.log(store);
 	var markerObj;
 	var marker = [];
+	var startMarker = {
+		addr:start,
+		text:start,
+		label:start
+	};
+	marker.push(startMarker);
 	for(var i = 0 ;i < route.length;i++){
 		markerObj = {
 			addr:route[i].to,
