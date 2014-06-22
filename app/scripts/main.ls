@@ -88,14 +88,9 @@ var loop = function(start,content,i,markerList,callback){
 			{
 				var top = $(this).context.offsetTop+"px";
 				$('html,body').animate({scrollTop: top},300);
-<<<<<<< HEAD
-				
+
 				console.log("address:"+$('span.loc',this).text());
 				var end = $('span.loc',this).text();
-=======
-				console.log("address:"+$('p.loc',this).text());
-				var end = $('p.loc',this).text();
->>>>>>> 7495762fa4151838161b69e02a46e1e536651eea
 				var direction = [];
 				var directionObj = {
 					from:start,
