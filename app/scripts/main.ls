@@ -145,7 +145,7 @@ function calcRoute(start,limit,value,i,markerList,markerLength,content,callback)
 					from:start,
 					to:end,
 					travel:value
-				}
+				};
 				if(limit*1000>distance){
 					console.log("n = "+n+" ,end:"+end+"distance:"+distance);
 					route.push(obj);
@@ -195,7 +195,11 @@ var storeSelect= function(start,route,store){
 	var startMarker = {
 		addr:start,
 		text:start,
-		label:start
+		label:start,
+		icon:{
+			url:'big_Marker.png',
+			size:[56,56]
+		}
 	};
 	marker.push(startMarker);
 	for(var i = 0 ;i < route.length;i++){
@@ -351,7 +355,6 @@ function PrintFooddata(data){
 	document.getElementById("List_Food").innerHTML = "";
 	var content = "";
 	var i = 0 ;
-	console.log("length = "+data.length);
 	$('#food').tinyMap('clear','marker');
 	loop(start,content,i,data,loop);
 }
