@@ -89,8 +89,8 @@ var loop = function(start,content,i,markerList,callback){
 				var top = $(this).context.offsetTop+"px";
 				$('html,body').animate({scrollTop: top},300);
 				
-				console.log("address:"+$('p.loc',this).text());
-				var end = $('p.loc',this).text();
+				console.log("address:"+$('span.loc',this).text());
+				var end = $('span.loc',this).text();
 				var direction = [];
 				var directionObj = {
 					from:start,
@@ -152,7 +152,7 @@ function calcRoute(start,limit,value,i,markerList,markerLength,content,callback)
 					route.push(obj);
 					store.push(storeName);
 					n++;
-					content += "<div data-role='collapsible' class = 'food_coll' id = '"+n+"'><h3>"+markerList[i].text+"</h3><p class = 'loc'>"+markerList[i].addr+"</p><p>"+markerList[i].phone+"<br>"+markerList[i].time+"<br>"+markerList[i].detail+"</p></div>";
+					content += "<div data-role='collapsible' class = 'food_coll' id = '"+n+"'><i class = 'icon home'></i><h3>"+markerList[i].text+"</h3><span class = 'loc'>　"+markerList[i].addr+"</span><br><i class = 'icon phone'></i><span>　"+markerList[i].phone+"</span><br><i class = 'icon food'></i><span>　"+markerList[i].time+"</span><br><i class = 'icon info'></i><span>　"+markerList[i].detail+"</span></div>";
 					callback(start,content,i,markerList,callback);
 				}
 			}
