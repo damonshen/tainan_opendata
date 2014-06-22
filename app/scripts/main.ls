@@ -74,7 +74,9 @@ var getResultStore = function(){
 var route = [];
 var store = [];
 var loop = function(start,content,i,markerList,callback){
-	if(n<10&&i<markerList.length){
+	if(n<11&&i<markerList.length-1){
+		console.log("i ="+i);
+		console.log("outer n = "+n);
 		i++;
 		calcRoute(start,5,"driving",i,markerList,markerList.length,content,callback);
 	}
@@ -119,7 +121,6 @@ var directionsService = new google.maps.DirectionsService();
 var dist;
 var test = 0;
 function calcRoute(start,limit,value,i,markerList,markerLength,content,callback){
-		console.log("i ="+i);
 		var end = markerList[i].addr;
 		var storeName = markerList[i].text;
 		var mode;
@@ -146,12 +147,12 @@ function calcRoute(start,limit,value,i,markerList,markerLength,content,callback)
 					travel:value
 				}
 				if(limit*1000>distance){
-					console.log("n = "+i+" ,end:"+end+"distance:"+distance);
+					console.log("n = "+n+" ,end:"+end+"distance:"+distance);
 					route.push(obj);
 					store.push(storeName);
 					n++;
-					if(markerLength<10&&i==markerLength-1||markerLength>10&&n==9){
-						n = 10;
+					if(markerLength<10&&i==markerLength-1||markerLength>10&&n==10){
+						n = 11;
 					}
 					content += "<div data-role='collapsible' class = 'food_coll' id = '"+n+"'><h3>"+markerList[i].text+"</h3><p class = 'loc'>"+markerList[i].addr+"</p><p>"+markerList[i].phone+"<br>"+markerList[i].time+"<br>"+markerList[i].detail+"</p></div>";
 					callback(start,content,i,markerList,callback);
@@ -159,8 +160,8 @@ function calcRoute(start,limit,value,i,markerList,markerLength,content,callback)
 				else{
 					console.log("n = "+i+" ,end:"+end+"distance:"+distance);
 					console.log("exceed n = "+n);
-					if(markerLength<10&&i==markerLength-1||markerLength>10&&n==9){
-						n = 10;
+					if(markerLength<10&&i==markerLength-1||markerLength>10&&n==10){
+						n = 11;
 					}
 					callback(start,content,i,markerList,callback);
 				}
@@ -169,7 +170,7 @@ function calcRoute(start,limit,value,i,markerList,markerLength,content,callback)
 				console.log("zero result");
 			}
 			else if(status == google.maps.DirectionsStatus.OVER_QUERY_LIMIT){
-				n = 10;
+				callback(start,content,i,markerList,callback);
 				console.log("over query limit");
 			}
 			else if(status == google.maps.DirectionsStatus.REQUEST_DENIED){
@@ -189,9 +190,6 @@ function calcRoute(start,limit,value,i,markerList,markerLength,content,callback)
 var callbackCount = 0;
 var storeSelect= function(start,route,store){
 	$('#food').tinyMap('clear','marker');
-	console.log("fuck");
-	console.log(route);
-	console.log(store);
 	var markerObj;
 	var marker = [];
 	var startMarker = {
