@@ -74,13 +74,11 @@ var getResultStore = function(){
 var route = [];
 var store = [];
 var loop = function(start,content,i,markerList,callback){
-	if(n<5&&i<markerList.length){
+	if(n<10&&i<markerList.length){
 		i++;
-		console.log("i="+i);
 		calcRoute(start,5,"driving",i,markerList,markerList.length,content,callback);
 	}
 	else{
-		console.log(content);
 		$(content).appendTo("#List_Food");
 		$('.food_coll').collapsible({
 		expand: function(){
@@ -106,10 +104,10 @@ var loop = function(start,content,i,markerList,callback){
 				$(this).context.childNodes[2].remove();
 		}
 	});
-		n =0;
 		storeSelect(start,route,store);
 		store = [];
 		route = [];
+		n =0;
 	}
 }
 ``
@@ -119,6 +117,7 @@ var directionsService = new google.maps.DirectionsService();
 var dist;
 var test = 0;
 function calcRoute(start,limit,value,i,markerList,markerLength,content,callback){
+		console.log("i ="+i);
 		var end = markerList[i].addr;
 		var storeName = markerList[i].text;
 		var mode;
@@ -149,7 +148,18 @@ function calcRoute(start,limit,value,i,markerList,markerLength,content,callback)
 					route.push(obj);
 					store.push(storeName);
 					n++;
+					if(markerLength<10&&i==markerLength-1||markerLength>10&&n==9){
+						n = 10;
+					}
 					content += "<div data-role='collapsible' class = 'food_coll'><h3>"+markerList[i].text+"</h3><p class = 'loc'>"+markerList[i].addr+"</p><p>"+markerList[i].phone+"<br>"+markerList[i].time+"<br>"+markerList[i].detail+"</p></div>";
+					callback(start,content,i,markerList,callback);
+				}
+				else{
+					console.log("n = "+i+" ,end:"+end+"distance:"+distance);
+					console.log("exceed n = "+n);
+					if(markerLength<10&&i==markerLength-1||markerLength>10&&n==9){
+						n = 10;
+					}
 					callback(start,content,i,markerList,callback);
 				}
 			}
@@ -157,6 +167,7 @@ function calcRoute(start,limit,value,i,markerList,markerLength,content,callback)
 				console.log("zero result");
 			}
 			else if(status == google.maps.DirectionsStatus.OVER_QUERY_LIMIT){
+				n = 10;
 				console.log("over query limit");
 			}
 			else if(status == google.maps.DirectionsStatus.REQUEST_DENIED){
@@ -340,7 +351,6 @@ function PrintFooddata(data){
 	document.getElementById("List_Food").innerHTML = "";
 	var content = "";
 	var i = 0 ;
-	console.log(data);
 	console.log("length = "+data.length);
 	$('#food').tinyMap('clear','marker');
 	loop(start,content,i,data,loop);
