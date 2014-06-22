@@ -74,20 +74,23 @@ var getResultStore = function(){
 var route = [];
 var store = [];
 var loop = function(start,content,i,markerList,callback){
-	if(n<5&&i<markerList.length){
+	if(n<11&&i<markerList.length-1){
+		console.log("i ="+i);
+		console.log("outer n = "+n);
 		i++;
-		console.log("i="+i);
 		calcRoute(start,5,"driving",i,markerList,markerList.length,content,callback);
 	}
 	else{
-		console.log(content);
 		$(content).appendTo("#List_Food");
 		$('.food_coll').collapsible({
 		expand: function(){
 			if($(this).context.childElementCount == 2)
 			{
-				console.log("address:"+$('p.loc',this).text());
-				var end = $('p.loc',this).text();
+				var top = $(this).context.offsetTop+"px";
+				$('html,body').animate({scrollTop: top},300);
+
+				console.log("address:"+$('span.loc',this).text());
+				var end = $('span.loc',this).text();
 				var direction = [];
 				var directionObj = {
 					from:start,
@@ -106,10 +109,10 @@ var loop = function(start,content,i,markerList,callback){
 				$(this).context.childNodes[2].remove();
 		}
 	});
-		n =0;
 		storeSelect(start,route,store);
 		store = [];
 		route = [];
+		n =0;
 	}
 }
 ``
@@ -143,13 +146,25 @@ function calcRoute(start,limit,value,i,markerList,markerLength,content,callback)
 					from:start,
 					to:end,
 					travel:value
-				}
+				};
 				if(limit*1000>distance){
-					console.log("n = "+i+" ,end:"+end+"distance:"+distance);
+					console.log("n = "+n+" ,end:"+end+"distance:"+distance);
 					route.push(obj);
 					store.push(storeName);
 					n++;
-					content += "<div data-role='collapsible' class = 'food_coll'><h3>"+markerList[i].text+"</h3><p class = 'loc'>"+markerList[i].addr+"</p><p>"+markerList[i].phone+"<br>"+markerList[i].time+"<br>"+markerList[i].detail+"</p></div>";
+					if(markerLength<10&&i==markerLength-1||markerLength>10&&n==10){
+						n = 11;
+					}
+					content += "<div data-role='collapsible' class = 'food_coll' id = '"+n+"'><i class = 'icon home'></i><h3>"+markerList[i].text+"</h3><span class = 'loc'>　"+markerList[i].addr+"</span><br><i class = 'icon phone'></i><span>　"+markerList[i].phone+"</span><br><i class = 'icon food'></i><span>　"+markerList[i].time+"</span><br><i class = 'icon info'></i><span>　"+markerList[i].detail+"</span></div>";
+
+					callback(start,content,i,markerList,callback);
+				}
+				else{
+					console.log("n = "+i+" ,end:"+end+"distance:"+distance);
+					console.log("exceed n = "+n);
+					if(markerLength<10&&i==markerLength-1||markerLength>10&&n==10){
+						n = 11;
+					}
 					callback(start,content,i,markerList,callback);
 				}
 			}
@@ -157,6 +172,7 @@ function calcRoute(start,limit,value,i,markerList,markerLength,content,callback)
 				console.log("zero result");
 			}
 			else if(status == google.maps.DirectionsStatus.OVER_QUERY_LIMIT){
+				callback(start,content,i,markerList,callback);
 				console.log("over query limit");
 			}
 			else if(status == google.maps.DirectionsStatus.REQUEST_DENIED){
@@ -176,15 +192,16 @@ function calcRoute(start,limit,value,i,markerList,markerLength,content,callback)
 var callbackCount = 0;
 var storeSelect= function(start,route,store){
 	$('#food').tinyMap('clear','marker');
-	console.log("fuck");
-	console.log(route);
-	console.log(store);
 	var markerObj;
 	var marker = [];
 	var startMarker = {
 		addr:start,
 		text:start,
-		label:start
+		label:start,
+		icon:{
+			url:'big_Marker.png',
+			size:[56,56]
+		}
 	};
 	marker.push(startMarker);
 	for(var i = 0 ;i < route.length;i++){
@@ -340,8 +357,6 @@ function PrintFooddata(data){
 	document.getElementById("List_Food").innerHTML = "";
 	var content = "";
 	var i = 0 ;
-	console.log(data);
-	console.log("length = "+data.length);
 	$('#food').tinyMap('clear','marker');
 	loop(start,content,i,data,loop);
 }
@@ -358,6 +373,8 @@ function PrintSportsdata(data){
 	$(content).appendTo("#List_Sports");
 	$('div[data-role=collapsible]').collapsible({
 		expand:function(){
+			var top = $(this).context.offsetTop+"px";
+			$('html,body').animate({scrollTop: top},300);
 			event_name = $("p.event_addr",this).text();
 			console.log(event_name);
 		}
