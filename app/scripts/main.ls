@@ -82,7 +82,7 @@ var loop = function(start,content,i,markerList,callback){
 	else{
 		console.log(content);
 		$(content).appendTo("#List_Food");
-		$('div[data-role=collapsible]').collapsible({
+		$('.food_coll').collapsible({
 		expand: function(){
 			if($(this).context.childElementCount == 2)
 			{
@@ -149,7 +149,7 @@ function calcRoute(start,limit,value,i,markerList,markerLength,content,callback)
 					route.push(obj);
 					store.push(storeName);
 					n++;
-					content += "<div data-role='collapsible'><h3>"+markerList[i].text+"</h3><p class = 'loc'>"+markerList[i].addr+"</p><p>"+markerList[i].phone+"<br>"+markerList[i].time+"<br>"+markerList[i].detail+"</p></div>";
+					content += "<div data-role='collapsible' class = 'food_coll'><h3>"+markerList[i].text+"</h3><p class = 'loc'>"+markerList[i].addr+"</p><p>"+markerList[i].phone+"<br>"+markerList[i].time+"<br>"+markerList[i].detail+"</p></div>";
 					callback(start,content,i,markerList,callback);
 				}
 			}
