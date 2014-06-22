@@ -3,20 +3,25 @@ extends layout
 block body
     #sports_select(data-role='page', data-theme='a')
       div(data-role='header', data-position='inline')
-        h1 Hackthon
+        .B_Title Being a Glutton
       //-button#test(type='button' data-role='button') test
       div#content_First
-        #Title 找尋藝文活動<br>週邊美食
-      a#sports_submit(href='#sports_map', data-role='button', data-transition='fade') Start
+        h1#Title.tlt( data-in-effect="pulse") 找尋藝文活動週邊美食
+        h1#Title2.tlt(data-in-effect="rotateIn") 最後的早餐@台南黑客松
+      a#sports_submit(href='#sports_map', data-role='button', data-transition='fade') 開始
     #sports_map(data-role='page', data-theme='a')
       div(data-role='header', data-position='inline')
-        h1 Hackthon
+        .B_Title Being a Glutton
+        a.ui-btn.ui-icon-arrow-l.ui-btn-icon-left(href='#', data-rel="back",class='ui-btn-left') Back
+        a.ui-btn.ui-icon-home.ui-btn-icon-left(href='index.html', class='ui-btn-right') Home
       #List_Sports(data-role="collapsible-set")
       #map(style='display:none')
-      a#switch2Food(href='#food_choice', data-role='button', data-transition='fade') Food Link
+      a#switch2Food(href='#food_choice', data-role='button', data-transition='fade') 附近有什麼好吃的?
     #food_choice(data-role='page', data-theme='a')
-        div(data-role='header', data-position='inline')
-          h1 Hackthon
+        div(data-role='header')
+          .B_Title Being a Glutton
+          a.ui-btn.ui-icon-arrow-l.ui-btn-icon-left(href='#', data-rel="back",class='ui-btn-left') Back
+          a.ui-btn.ui-icon-home.ui-btn-icon-left(href='index.html', class='ui-btn-right') Home
         div(data-role='fieldcontain')
         fieldset.ui-grid-a
           legend 選擇食物類型:
@@ -38,15 +43,17 @@ block body
             label(for='radio-choice-7') 地方特產
             input#radio-choice-8(type='radio', name='radio-choice-1', value='8')
             label(for='radio-choice-8') 素食
-        a#food_submit.graybutton(href='#food_map', data-role='button', data-transition='fade') Food Map
+        a#food_submit.graybutton(href='#food_map', data-role='button', data-transition='fade') 找美食!!
     #food_map(data-role='page', data-theme='a')
       div(data-role='header', data-position='inline')
-          h1 Hackthon
+        .B_Title Being a Glutton
+        a.ui-btn.ui-icon-arrow-l.ui-btn-icon-left(href='#', data-rel="back",class='ui-btn-left') Back
+        a.ui-btn.ui-icon-home.ui-btn-icon-left(href='index.html', class='ui-btn-right') Home
       fieldset(data-role='controlgroup', data-mini='true', data-type='horizontal')
-        input#radio-mini-b1(type='radio', name='radio-mini', value='choice-1', checked='checked')
-        label(for='radio-mini-b1') Map
-        input#radio-mini-b2(type='radio', name='radio-mini', value='choice-2')
-        label(for='radio-mini-b2') List
+        input#radio-mini-b1(type='radio', name='radio', value='choice-1', checked='checked')
+        label#L1(for='radio-mini-b1') Map
+        input#radio-mini-b2(type='radio', name='radio', value='choice-2')
+        label#L2(for='radio-mini-b2') List
       #List_Food(data-role="collapsible-set",style='display:none')
       #food
-      a#final.graybutton(href='index.html', data-role='button', data-transition='fade') Sports choice
+      a#final.graybutton(href='index.html', data-role='button', data-transition='fade') 重新搜尋

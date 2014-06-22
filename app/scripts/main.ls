@@ -34,6 +34,21 @@ $(document).ready(function(){
 	});
 	$('#food_submit').click(function(){
 		$('#food').tinyMap(mapOption);
+		$('#List_Food').css('display','none');
+		$('#food').css('display','block');
+		$('#radio-mini-b1').css({
+			"checked":"true",
+			"data-cacheval":"false"
+		});
+		$('#radio-mini-b2').css({
+			"checked":"false",
+			"data-cacheval":"true"
+		});
+		$('#radio-mini-b2').removeAttr("checked");
+		$('#L1').addClass("ui-btn-active ui-radio-on");
+		$('#L1').removeClass("ui-radio-off");
+		$('#L2').removeClass("ui-btn-active ui-radio-on");
+		$('#L2').addClass("ui-radio-off");
 	});
 });
 
@@ -67,7 +82,7 @@ var loop = function(start,content,i,markerList,callback){
 	else{
 		console.log(content);
 		$(content).appendTo("#List_Food");
-		$('div[data-role=collapsible]').collapsible({
+		$('.food_coll').collapsible({
 		expand: function(){
 			if($(this).context.childElementCount == 2)
 			{
@@ -134,7 +149,7 @@ function calcRoute(start,limit,value,i,markerList,markerLength,content,callback)
 					route.push(obj);
 					store.push(storeName);
 					n++;
-					content += "<div data-role='collapsible'><h3>"+markerList[i].text+"</h3><p class = 'loc'>"+markerList[i].addr+"</p><p>"+markerList[i].phone+"<br>"+markerList[i].time+"<br>"+markerList[i].detail+"</p></div>";
+					content += "<div data-role='collapsible' class = 'food_coll'><h3>"+markerList[i].text+"</h3><p class = 'loc'>"+markerList[i].addr+"</p><p>"+markerList[i].phone+"<br>"+markerList[i].time+"<br>"+markerList[i].detail+"</p></div>";
 					callback(start,content,i,markerList,callback);
 				}
 			}
@@ -302,6 +317,7 @@ $ ->
 
 ``
 $(function() {
+   $('.tlt').textillate();
    $("input[type='radio']").checkboxradio();
    $("#radioButton").click();
    $('#sports_submit').click(GetSportList);
