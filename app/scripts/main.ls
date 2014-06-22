@@ -6,8 +6,6 @@ mapOption =
 #go button used to trigger distance measured and select the nearest store
 ``
 var event_name = "";
-var loop_stop = 0;
-var stop = 0;
 $(document).ready(function(){$('#go').click(function(){
 	getResultStore();
 })});
@@ -49,6 +47,9 @@ $(document).ready(function(){
 		$('#L1').removeClass("ui-radio-off");
 		$('#L2').removeClass("ui-btn-active ui-radio-on");
 		$('#L2').addClass("ui-radio-off");
+		$('#final').click(function(){
+			setTimeout(function(){window.location.reload()},50);
+		});
 	});
 });
 
